@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'Smart';
+  src: url('./fonts/smart_9_v2.1/Smart9.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Rude';
+  src: url('./fonts/rude_11_v3/Rude11.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

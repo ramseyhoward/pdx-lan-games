@@ -1,0 +1,67 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.home-page h1 {
+  margin-bottom: 1rem;
+  font-family: 'Rude', sans-serif;
+  font-size: 3rem;
+}
+
+.status {
+  text-align: center;
+  margin-top: 2rem;
+  color: #555;
+}
+
+.status.error {
+  color: #c00;
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.sort-label {
+  font-size: 0.9rem;
+  color: #555;
+  white-space: nowrap;
+}
+
+.sort-keys,
+.sort-dirs {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.sort-btn {
+  padding: 0.25rem 0.65rem;
+  font-size: 0.85rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.sort-btn:hover {
+  border-color: #1a73e8;
+  color: #1a73e8;
+}
+
+.sort-btn.active {
+  background: #1a73e8;
+  border-color: #1a73e8;
+  color: #fff;
+}

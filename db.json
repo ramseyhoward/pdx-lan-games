@@ -1,0 +1,54 @@
+{
+  "games": [
+    {
+      "id": 892970,
+      "appId": 892970,
+      "title": "Valheim",
+      "headerUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/892970/de0bdcf6c008c508a79d8e75eb91fc67f4bebd5d/header.jpg?t=1765967243",
+      "coverUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/892970/library_600x900_2x.jpg",
+      "steamUrl": "https://store.steampowered.com/app/892970",
+      "price": "$19.99",
+      "votes": 21
+    },
+    {
+      "id": 526870,
+      "appId": 526870,
+      "title": "Satisfactory",
+      "headerUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/526870/header.jpg?t=1749717464",
+      "coverUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/526870/library_600x900_2x.jpg",
+      "steamUrl": "https://store.steampowered.com/app/526870",
+      "price": "$39.99",
+      "votes": 22
+    },
+    {
+      "id": 4069520,
+      "appId": 4069520,
+      "title": "Super Battle Golf",
+      "headerUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4069520/60b052f108998c01fed147d07578a2aed9bcd4ee/header.jpg?t=1772103787",
+      "coverUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/4069520/library_600x900_2x.jpg",
+      "steamUrl": "https://store.steampowered.com/app/4069520",
+      "price": "$7.99",
+      "votes": 9
+    },
+    {
+      "id": 431240,
+      "appId": 431240,
+      "title": "Golf With Your Friends",
+      "headerUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/431240/header.jpg?t=1771860670",
+      "coverUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/431240/library_600x900_2x.jpg",
+      "steamUrl": "https://store.steampowered.com/app/431240",
+      "price": "$14.99",
+      "votes": 12
+    },
+    {
+      "id": 739630,
+      "appId": 739630,
+      "title": "Phasmophobia",
+      "headerUrl": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/739630/3954bd92072a1265c82bda4a31ff852afc81532f/header_alt_assets_7.jpg?t=1772546327",
+      "coverUrl": "https://cdn.cloudflare.steamstatic.com/steam/apps/739630/library_600x900_2x.jpg",
+      "steamUrl": "https://store.steampowered.com/app/739630",
+      "price": "$19.99",
+      "votes": 10
+    }
+  ]
+}
