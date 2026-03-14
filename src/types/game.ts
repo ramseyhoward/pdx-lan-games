@@ -9,7 +9,6 @@ export interface Game {
   votes: number;
 }
 
-// Shape stored in db.json — metadata fields populated lazily from Steam API
 export interface DbGame {
   id: number;
   appId: number;

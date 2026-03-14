@@ -14,11 +14,9 @@ export function useGames() {
 
       const resolved = await Promise.all(
         dbGames.map(async (dbGame) => {
-          // Metadata already cached — no API call needed
           if (dbGame.title && dbGame.headerUrl) {
             return dbGame as Game;
           }
-          // First load: fetch from Steam and persist metadata back to db
           const full = await fetchGameDetails(dbGame.appId, dbGame.votes);
           await patchGame(dbGame.id, {
             title: full.title,
