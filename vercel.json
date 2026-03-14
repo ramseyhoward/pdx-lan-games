@@ -1,0 +1,23 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/steam-search/:path*",
+      "destination": "https://store.steampowered.com/api/storesearch/:path*"
+    },
+    {
+      "source": "/api/steam/:path*",
+      "destination": "https://store.steampowered.com/api/appdetails/:path*"
+    },
+    {
+      "source": "/pdxlan",
+      "destination": "/index.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/pdxlan",
+      "permanent": false
+    }
+  ]
+}
