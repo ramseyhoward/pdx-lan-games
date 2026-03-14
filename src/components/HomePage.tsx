@@ -33,7 +33,7 @@ export default function HomePage() {
 
   return (
     <div className="home-page">
-      <h1>PDX LAN GAMES</h1>
+      <h1>CHAD SUCKS</h1>
       <GameSearch existingAppIds={existingAppIds} onAdd={addNewGame} />
       <div className="sort-controls">
         <span className="sort-label">Sort by:</span>
