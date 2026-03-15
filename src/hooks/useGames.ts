@@ -38,8 +38,8 @@ export function useGames() {
   }, []);
 
   async function adjustVotes(id: number, delta: number) {
-    setGames((prev) => {
-      const updated = prev.map((g) =>
+    setGames((currentGames) => {
+      const updated = currentGames.map((g) =>
         g.id === id ? { ...g, votes: g.votes + delta } : g,
       );
       const game = updated.find((g) => g.id === id);

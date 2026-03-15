@@ -1,4 +1,5 @@
 .claude/
+.env.local
 
 ### react ###
 .DS_*
