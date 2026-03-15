@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getCollection } from '../_db';
+import { getCollection } from '../_db.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
     const collection = await getCollection();
