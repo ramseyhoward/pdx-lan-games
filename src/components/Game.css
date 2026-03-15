@@ -2,12 +2,12 @@
   position: relative;
   display: flex;
   gap: 1rem;
-  border: 1px solid #ddd;
+  border: 5px solid #ddd;
   border-radius: 8px;
   padding: 1rem;
   align-items: center;
   color: #f2f2ff;
-  background-color: #15173d;
+  background-color: #3e267c;
 }
 
 .remove-btn {
