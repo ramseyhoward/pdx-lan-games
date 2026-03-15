@@ -84,9 +84,6 @@ export default function GameSearch({ existingAppIds, onAdd }: Props) {
               </li>
             );
           })}
-          <li className="search-result">
-            <span className="result-name">Add a non-steam game</span>
-          </li>
         </ul>
       )}
     </div>

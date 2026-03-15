@@ -1,9 +1,9 @@
-import { Fragment } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import type { Game as GameType } from '../types/game';
 import Game from './Game.tsx';
 import './GameList.css';
 import { useScreenSize } from '../hooks/useScreenSize.ts';
+import Marquee from "react-fast-marquee";
 
 interface Props {
   games: GameType[];
@@ -20,9 +20,21 @@ export default function GameList({
 }: Props) {
   const { width } = useScreenSize();
   const largeScreenArrowPosition = "M 1,8 L 15,8 M 4,11 L 1,8 L 4,5";
-  const smallScreenArrowPosition = "M 15,8 L 1,8 M 12,11 L 15,8 L 12,5";
   return (
     <div className="game-list-wrapper">
+      {games.length > 0 && width < 1450 && (
+        <div className="vote-box-small">
+          <img className='vote-box-small-image-left'
+            src={'/me_pointing_right.png'}
+          />
+          <Marquee className="vote-box-info-small">
+            Hey asshole!!! Don't vote more than once!
+          </Marquee>
+          <img className='vote-box-small-image-right'
+            src={'/me_pointing_left.png'}
+          />
+        </div>
+      )}
       <div className="game-list-scroll">
       <ul className="game-list">
         <AnimatePresence>
@@ -38,22 +50,22 @@ export default function GameList({
         </AnimatePresence>
       </ul>
       </div>
-      {games.length > 0 && (
-        <div className={width >= 1400 ? "vote-box-large" : "vote-box-small"}>
-          <svg className="vote-box-arrow" viewBox="0 0 16 16" fill="none">
-            <path
-              d={width >= 1400 ? largeScreenArrowPosition : smallScreenArrowPosition}
-              stroke="white"
-              strokeWidth="1"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <div className="vote-box-info">
-            <span>Hey asshole!</span>
-            <span>Don't vote more than once!</span>
+      {games.length > 0 && width >= 1450 && (
+          <div className="vote-box-large">
+            <svg className="vote-box-arrow" viewBox="0 0 16 16" fill="none">
+              <path
+                d={largeScreenArrowPosition}
+                stroke="white"
+                strokeWidth="1"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <div className="vote-box-info">
+              <span>Hey asshole!</span>
+              <span>Don't vote more than once!</span>
+            </div>
           </div>
-        </div>
       )}
     </div>
   );
