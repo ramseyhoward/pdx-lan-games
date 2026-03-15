@@ -65,3 +65,11 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+@media (max-width: 600px) {
+  .game-list-scroll {
+    height: auto;
+    overflow-y: visible;
+  }
+
+}
