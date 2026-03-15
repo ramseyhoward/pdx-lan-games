@@ -63,14 +63,16 @@
 }
 
 .vote-box-small-image-left {
-  height: 134px;
+  height: clamp(50px, 15vw, 134px);
+  width: auto;
   object-fit: cover;
   border-radius: 4px;
   margin-right: 1rem;
 }
 
 .vote-box-small-image-right {
-  height: 134px;
+  height: clamp(50px, 15vw, 134px);
+  width: auto;
   object-fit: cover;
   border-radius: 4px;
   margin-left: 1rem;
