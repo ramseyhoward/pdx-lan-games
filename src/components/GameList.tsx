@@ -22,7 +22,7 @@ export default function GameList({
   const largeScreenArrowPosition = "M 1,8 L 15,8 M 4,11 L 1,8 L 4,5";
   return (
     <div className="game-list-wrapper">
-      {games.length > 0 && width < 1450 && (
+      {games.length > 0 && (
         <div className="vote-box-small">
           <img className='vote-box-small-image-left'
             src={'/me_pointing_right.png'}
@@ -55,23 +55,6 @@ export default function GameList({
         </AnimatePresence>
       </ul>
       </div>
-      {games.length > 0 && width >= 1450 && (
-          <div className="vote-box-large">
-            <svg className="vote-box-arrow" viewBox="0 0 16 16" fill="none">
-              <path
-                d={largeScreenArrowPosition}
-                stroke="white"
-                strokeWidth="1"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <div className="vote-box-info">
-              <span>Hey asshole!</span>
-              <span>Don't vote more than once!</span>
-            </div>
-          </div>
-      )}
     </div>
   );
 }

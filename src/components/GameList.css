@@ -8,17 +8,11 @@
 .game-list-scroll {
   height: 100%;
   overflow-y: scroll;
-  padding-right: 10px;
+  scrollbar-width: none;
 }
 
-.vote-box-large {
-  position: absolute;
-  left: calc(100% + 0.5rem);
-  top: 86px;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.game-list-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .vote-box-small {
@@ -29,12 +23,6 @@
   align-items: center;
   background-color: #83e6e6;
   margin-bottom: 20px;
-}
-
-.vote-box-arrow {
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
 }
 
 .vote-box-info-small {
@@ -50,15 +38,6 @@
   text-align: center;
   color: white;
   font-size: 0.85rem;
-  font-weight: bold;
-}
-
-.vote-box-info {
-  color: white;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  display: flex;
-  flex-direction: column;
   font-weight: bold;
 }
 
