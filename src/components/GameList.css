@@ -42,12 +42,24 @@
   font-size: 1.5rem;
 }
 
+.vote-box-info-small-spans {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  text-align: center;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
 .vote-box-info {
   color: white;
   font-size: 0.85rem;
   white-space: nowrap;
   display: flex;
   flex-direction: column;
+  font-weight: bold;
 }
 
 .vote-box-small-image-left {

@@ -27,9 +27,14 @@ export default function GameList({
           <img className='vote-box-small-image-left'
             src={'/me_pointing_right.png'}
           />
-          <Marquee className="vote-box-info-small">
-            Hey asshole!!! Don't vote more than once!
+          {width >= 900 ? (
+            <Marquee className="vote-box-info-small">
+            Hey asshole! Don't vote more than once!
           </Marquee>
+          ) : (
+            <div className="vote-box-info-small-spans"><span>Hey asshole!</span><span>Don't vote more than once!</span></div>
+          )
+          }
           <img className='vote-box-small-image-right'
             src={'/me_pointing_left.png'}
           />
