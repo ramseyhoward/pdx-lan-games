@@ -74,7 +74,7 @@ export function BubbleBackground({
         position: 'fixed',
         inset: 0,
         overflow: 'hidden',
-        background: 'linear-gradient(to bottom right, #c260f0, #5a07a7)',
+        background: 'linear-gradient(to bottom right, #c260f0, #2f005b)',
       }}
     >
       <svg style={{ display: 'none' }} aria-hidden="true">
@@ -107,7 +107,7 @@ export function BubbleBackground({
           style={{
             position: 'absolute',
             borderRadius: '50%',
-            mixBlendMode: 'hard-light',
+            mixBlendMode: 'screen',
             width: '80%',
             height: '80%',
             top: '10%',
