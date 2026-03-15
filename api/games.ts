@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getCollection } from './_db.js';
+import {pusher} from './_pusher.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
     const collection = await getCollection();
@@ -12,6 +13,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
     if (request.method === 'POST') {
         const game = request.body;
         await collection.insertOne(game);
+        await pusher.trigger('pdxlan-games', 'changed', {});
         return response.status(201).json(game);
     }
 
