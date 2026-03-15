@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchGameDetails } from '../services/steamApi';
 import { getGames, patchGame, addGame, deleteGame } from '../services/gameDb';
 import type { Game } from '../types/game';
+import Pusher from 'pusher-js';
 
 export function useGames() {
   const [games, setGames] = useState<Game[]>([]);
@@ -35,6 +36,19 @@ export function useGames() {
     load()
       .catch((e: unknown) => setError(String(e)))
       .finally(() => setLoading(false));
+
+    const pusher = new Pusher(import.meta.env.VITE_PUSHER_KEY, {
+      cluster: import.meta.env.VITE_PUSHER_CLUSTER,
+    });
+    const channel = pusher.subscribe('pdxlan-games');
+    channel.bind('changed', () => {
+      load().catch((e: unknown) => setError(String(e)));
+    })
+
+    return () => {
+      channel.unbind_all();
+      pusher.disconnect();
+    }
   }, []);
 
   async function adjustVotes(id: number, delta: number) {
