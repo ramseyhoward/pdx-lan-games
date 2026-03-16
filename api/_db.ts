@@ -10,3 +10,11 @@ export async function getCollection() {
   }
   return client.db('pdxlandata').collection('games');
 }
+
+export async function getUsersCollection() {
+  if (!connected) {
+    await client.connect();
+    connected = true;
+  }
+  return client.db('pdxlandata').collection('users');
+}
