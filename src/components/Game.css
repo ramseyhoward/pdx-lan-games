@@ -10,25 +10,6 @@
   background-color: #3e267c;
 }
 
-.remove-btn {
-  position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
-  width: 1.4rem;
-  height: 1.4rem;
-  padding: 0;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background: none;
-  color: #aaa;
-  font-size: 0.75rem;
-  cursor: pointer;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .remove-btn:hover {
   background: #fee2e2;
   border-color: #fca5a5;
