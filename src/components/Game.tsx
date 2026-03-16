@@ -80,11 +80,15 @@ export default function Game({ game, initialVotedFlag, onUpvote, onDownvote, onR
       </div>
       <div className="vote-controls">
         <button
+          className={voted ? "voted" : undefined}
           onClick={handleVote}
           aria-label={voted ? "Remove vote" : "Upvote"}
         >
-          <img className="elle-thumb-up"      src="/elle_thumb_up.png"      alt="Upvote" />
-          <img className="elle-thumb-neutral" src="/elle_thumb_neutral.png" alt="Neutral" />
+          <img
+            className="elle-thumb-up"
+            src={voted ? '/elle_thumb_up.png' : '/elle_thumb_neutral.png'}
+            alt={voted ? 'Voted' : 'Vote'}
+          />
           <span className={voted ? "vote-count-voted": "vote-count-not-voted"}>{game.votes}</span>
         </button>
       </div>
