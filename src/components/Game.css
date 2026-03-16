@@ -120,7 +120,7 @@
 
 .vote-controls button {
   background: none;
-  border: 2px solid #3a0775;
+  border: 2px solid #320862;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.8rem;
@@ -133,4 +133,34 @@
 
 .vote-controls button:hover {
   background: #f0f0f0;
+}
+
+.vote-count-not-voted {
+  color: #a5a5aa;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.vote-count-voted {
+  color: #320862;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.vote-controls button .elle-thumb-up      { display: none; }
+.vote-controls button .elle-thumb-neutral { display: block; }
+
+.vote-controls button:active .elle-thumb-up      { display: block; }
+.vote-controls button:active .elle-thumb-neutral { display: none; }
+
+@media (max-width: 800px) {
+  .elle-thumb-up,
+  .elle-thumb-neutral {
+    width: clamp(20px, 8vw, 60px);
+    height: clamp(20px, 8vw, 60px);
+  }
+
+  .vote-controls button {
+    padding: 0.1rem 0.2rem;
+  }
 }
