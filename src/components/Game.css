@@ -147,11 +147,6 @@
   font-weight: bold;
 }
 
-.vote-controls button .elle-thumb-up      { display: none; }
-.vote-controls button .elle-thumb-neutral { display: block; }
-
-.vote-controls button:active .elle-thumb-up      { display: block; }
-.vote-controls button:active .elle-thumb-neutral { display: none; }
 
 @media (max-width: 800px) {
   .elle-thumb-up,
