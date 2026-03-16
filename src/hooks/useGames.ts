@@ -8,6 +8,7 @@ export function useGames() {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
     async function load() {
@@ -49,7 +50,11 @@ export function useGames() {
       channel.unbind_all();
       pusher.disconnect();
     }
-  }, []);
+  }, [refreshKey]);
+
+  function refresh() {
+    setRefreshKey(key => key + 1);
+  }
 
   async function adjustVotes(id: number, delta: number) {
     setGames((currentGames) => {
@@ -62,11 +67,12 @@ export function useGames() {
     });
   }
 
-  async function addNewGame(appId: number): Promise<void> {
+  async function addNewGame(appId: number): Promise<number | undefined> {
     if (games.some((g) => g.appId === appId)) return;
-    const game = await fetchGameDetails(appId, 0);
+    const game = await fetchGameDetails(appId, 1);
     await addGame(game);
     setGames((prev) => [...prev, game]);
+    return game.id;
   }
 
   async function removeGame(id: number): Promise<void> {
@@ -74,5 +80,5 @@ export function useGames() {
     setGames((prev) => prev.filter((g) => g.id !== id));
   }
 
-  return { games, loading, error, adjustVotes, addNewGame, removeGame };
+  return { games, loading, error, adjustVotes, addNewGame, removeGame, refresh };
 }

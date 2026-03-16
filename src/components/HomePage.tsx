@@ -18,10 +18,11 @@ function parsePrice(price: string): number {
 }
 
 export default function HomePage() {
-  const { games, loading, error, adjustVotes, addNewGame, removeGame } =
+  const { games, loading, error, adjustVotes, addNewGame, removeGame, refresh } =
     useGames();
   const [sortKey, setSortKey] = useState<SortKey>('votes');
   const [sortDir, setSortDir] = useState<SortDirection>('desc');
+  const [newGameId, setNewGameId] = useState<number | undefined>(undefined);
 
   const sortMultiplier = sortDir === 'desc' ? 1 : -1;
   const sorted = games.slice().sort((a, b) => {
@@ -31,10 +32,15 @@ export default function HomePage() {
 
   const existingAppIds = new Set(games.map((g) => g.appId));
 
+  async function handleAddGame(appId: number) {
+    const id = await addNewGame(appId);
+    if (id !== undefined) setNewGameId(id);
+  }
+
   return (
     <div className="home-page">
       <h1>PDX LAN GAMES</h1>
-      <GameSearch existingAppIds={existingAppIds} onAdd={addNewGame} />
+      <GameSearch existingAppIds={existingAppIds} onAdd={handleAddGame} />
       <div className="sort-controls">
         <span className="sort-label">Sort by:</span>
         <div className="sort-keys">
@@ -60,11 +66,15 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+      <div className="sort-controls">
+        <button className="sort-btn active" onClick={refresh}>Refresh vote counts</button>
+      </div>
       {loading && <p className="status">Loading games…</p>}
       {error && <p className="status error">Failed to load games: {error}</p>}
       {!loading && !error && (
         <GameList
           games={sorted}
+          newGameId={newGameId}
           onUpvote={(id) => adjustVotes(id, 1)}
           onDownvote={(id) => adjustVotes(id, -1)}
           onRemove={removeGame}

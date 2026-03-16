@@ -8,7 +8,6 @@ export default async function handler(request: VercelRequest, response: VercelRe
 
     if (request.method === 'PATCH') {
         await collection.updateOne({id}, {$set: request.body});
-        await pusher.trigger('pdxlan-games', 'changed', {});
         return response.status(200).end();
     }
 

@@ -125,21 +125,31 @@
   flex-shrink: 0;
 }
 
+.elle-thumb-neutral {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.elle-thumb-up {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
 .vote-controls button {
   background: none;
-  border: 1px solid #ccc;
+  border: 2px solid #3a0775;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.8rem;
   padding: 0.2rem 0.5rem;
   line-height: 1;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
 }
 
 .vote-controls button:hover {
   background: #f0f0f0;
-}
-
-.vote-count {
-  font-weight: bold;
-  font-size: 1rem;
 }

@@ -5,13 +5,24 @@ import './Game.css';
 
 interface Props {
   game: GameType;
+  initialVotedFlag: boolean;
   onUpvote: () => void;
   onDownvote: () => void;
   onRemove: () => void;
 }
 
-export default function Game({ game, onUpvote, onDownvote, onRemove }: Props) {
+export default function Game({ game, initialVotedFlag, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
+  const [voted, setVoted] = useState(initialVotedFlag ?? false);
+
+  function handleVote() {
+    if (voted) {
+      onDownvote();
+    } else {
+      onUpvote();
+    }
+    setVoted(!voted);
+  }
 
   function handleRemoveClick() {
     setConfirming(true);
@@ -30,7 +41,7 @@ export default function Game({ game, onUpvote, onDownvote, onRemove }: Props) {
     <motion.li
       className="game-card"
       layout
-      transition={{ duration: 0.25 }}
+      transition={{ delay: 1, duration: 0.5 }}
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -51,12 +62,16 @@ export default function Game({ game, onUpvote, onDownvote, onRemove }: Props) {
         </a>
       </div>
       <div className="vote-controls">
-        <button onClick={onUpvote} aria-label="Upvote">
-          ▲
-        </button>
-        <span className="vote-count">{game.votes}</span>
-        <button onClick={onDownvote} aria-label="Downvote">
-          ▼
+        <button 
+          onClick={handleVote}
+          aria-label={voted ? "Remove vote" : "Upvote"}
+        >
+          <img
+            className={voted ? "elle-thumb-neutral" : "elle-thumb-up"}
+            src={voted ? '/elle_thumb_neutral.png' : '/elle_thumb_up.png'}
+            alt={voted ? 'Remove vote' : 'Upvote'}
+          />
+          {game.votes}
         </button>
       </div>
       <button

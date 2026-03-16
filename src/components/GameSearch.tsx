@@ -70,17 +70,18 @@ export default function GameSearch({ existingAppIds, onAdd }: Props) {
       {open && (
         <ul className="search-results">
           {results.map((result) => {
-            const already = existingAppIds.has(result.id);
+            const alreadyAdded = existingAppIds.has(result.id);
             return (
-              <li key={result.id} className="search-result">
+              <li 
+                key={result.id} 
+                className={`search-result${alreadyAdded ? ' already-added' : ''}`}
+                onClick={() => !alreadyAdded && adding !== result.id && handleAdd(result)}
+                style={{ cursor: alreadyAdded ? 'default' : 'pointer' }}
+              >
                 <img src={result.tiny_image} alt={result.name} />
                 <span className="result-name">{result.name}</span>
-                <button
-                  onClick={() => handleAdd(result)}
-                  disabled={already || adding === result.id}
-                >
-                  {already ? 'Added' : adding === result.id ? '…' : '+ Add'}
-                </button>
+                {alreadyAdded && <span className="result-status">Already added</span>}
+                {adding === result.id && <span className="result-status">…</span>}
               </li>
             );
           })}

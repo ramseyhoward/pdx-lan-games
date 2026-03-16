@@ -7,6 +7,7 @@ import Marquee from "react-fast-marquee";
 
 interface Props {
   games: GameType[];
+  newGameId?: number;
   onUpvote: (id: number) => void;
   onDownvote: (id: number) => void;
   onRemove: (id: number) => void;
@@ -14,12 +15,12 @@ interface Props {
 
 export default function GameList({
   games,
+  newGameId,
   onUpvote,
   onDownvote,
   onRemove,
 }: Props) {
   const { width } = useScreenSize();
-  const largeScreenArrowPosition = "M 1,8 L 15,8 M 4,11 L 1,8 L 4,5";
   return (
     <div className="game-list-wrapper">
       {games.length > 0 && (
@@ -46,6 +47,7 @@ export default function GameList({
           {games.map((game) => (
             <Game
               key={game.id}
+              initialVotedFlag={game.id === newGameId}
               game={game}
               onUpvote={() => onUpvote(game.id)}
               onDownvote={() => onDownvote(game.id)}

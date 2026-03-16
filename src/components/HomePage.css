@@ -15,6 +15,7 @@ body::-webkit-scrollbar {
   padding: 2rem;
   box-sizing: border-box;
   font-family: sans-serif;
+  overflow: hidden;
 }
 
 @media (max-width: 800px) {
@@ -49,7 +50,7 @@ body::-webkit-scrollbar {
 
 .sort-label {
   font-size: 0.9rem;
-  color: #555;
+  color: #ffffff;
   white-space: nowrap;
 }
 
@@ -66,16 +67,21 @@ body::-webkit-scrollbar {
   border-radius: 4px;
   background: none;
   cursor: pointer;
-  color: #333;
+  color: #ffffff;
 }
 
 .sort-btn:hover {
-  border-color: #1a73e8;
-  color: #1a73e8;
+  border-color: #6656f2;
+  color: #6656f2;
 }
 
 .sort-btn.active {
-  background: #1a73e8;
-  border-color: #1a73e8;
+  background: #6656f2;
+  border-color: #6656f2;
   color: #fff;
+}
+
+.sort-btn:active {
+  transform: scale(0.93);
+  transition: transform 0.1s;
 }
