@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import type { Game as GameType } from '../types/game';
 import './Game.css';
 
@@ -26,13 +26,6 @@ interface Props {
 export default function Game({ game, initialVotedFlag, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [voted, setVoted] = useState(() => initialVotedFlag || getVotedIds().has(game.id));
-  const thumbUpRef = useRef<HTMLImageElement>(null);
-  const thumbNeutralRef = useRef<HTMLImageElement>(null);
-
-  function setPressingDirect(pressing: boolean) {
-    if (thumbUpRef.current)      thumbUpRef.current.style.display      = pressing ? 'none'  : 'block';
-    if (thumbNeutralRef.current) thumbNeutralRef.current.style.display = pressing ? 'block' : 'none';
-  }
 
   function handleVote() {
     if (voted) {
@@ -88,13 +81,10 @@ export default function Game({ game, initialVotedFlag, onUpvote, onDownvote, onR
       <div className="vote-controls">
         <button
           onClick={handleVote}
-          onPointerDown={() => setPressingDirect(true)}
-          onPointerUp={() => setPressingDirect(false)}
-          onPointerLeave={() => setPressingDirect(false)}
           aria-label={voted ? "Remove vote" : "Upvote"}
         >
-          <img ref={thumbNeutralRef} className="elle-thumb-neutral" src="/elle_thumb_neutral.png" alt="Neutral" style={{ display: 'none' }} />
-          <img ref={thumbUpRef}      className="elle-thumb-up"      src="/elle_thumb_up.png"      alt="Upvote"  style={{ display: 'block' }} />
+          <img className="elle-thumb-up"      src="/elle_thumb_up.png"      alt="Upvote" />
+          <img className="elle-thumb-neutral" src="/elle_thumb_neutral.png" alt="Neutral" />
           <span className={voted ? "vote-count-voted": "vote-count-not-voted"}>{game.votes}</span>
         </button>
       </div>
