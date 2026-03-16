@@ -11,3 +11,18 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Glitch Slap';
+  src: url('./fonts/glitch_slap/GlitchSlap.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Supermarketed';
+  src: url('./fonts/supermarketed/Supermarketed.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Danger on the Motorway';
+  src: url('./fonts/danger_on_the_motorway/Danger_on_the_Motorway.otf') format('opentype');
+}

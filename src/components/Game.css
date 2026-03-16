@@ -78,6 +78,10 @@
   flex-shrink: 0;
 }
 
+.game-title {
+  font-family: 'Glitch Slap';
+}
+
 .game-info {
   display: flex;
   flex-direction: column;
@@ -92,9 +96,8 @@
 
 .game-price {
   margin: 0;
-  font-size: 0.9rem;
+  font-family: 'Supermarketed';
   color: #4caf50;
-  font-weight: 600;
 }
 
 .game-info a {

@@ -78,7 +78,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, 
         }}
       />
       <div className="game-info">
-        <h2>{game.title}</h2>
+        <h2 className="game-title">{game.title}</h2>
         <p className="game-price">{displayPrice}</p>
         {game.onSale && (
           <a href={tobiasFireSaleLink} target="_blank" rel="noreferrer" className="sale-link">

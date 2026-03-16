@@ -26,8 +26,9 @@
 }
 
 .vote-box-info-small {
-  color: white;
-  font-size: 1.5rem;
+  color: rgb(255, 255, 255);
+  font-size: 1.25rem;
+  font-family: 'Danger on the Motorway';
 }
 
 .vote-box-info-small-spans {
