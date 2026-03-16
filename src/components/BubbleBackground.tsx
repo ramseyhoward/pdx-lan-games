@@ -2,6 +2,7 @@ import {
   motion,
   type SpringOptions,
   useMotionValue,
+  useReducedMotion,
   useSpring,
 } from 'framer-motion';
 import { useCallback, useEffect, useRef } from 'react';
@@ -35,6 +36,7 @@ export function BubbleBackground({
     sixth: '238,105,131',
   },
 }: BubbleBackgroundProps) {
+  const prefersReducedMotion = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const mouseX = useMotionValue(0);
@@ -114,7 +116,7 @@ export function BubbleBackground({
             left: '10%',
             background: makeGradient(colors.first),
           }}
-          animate={{ y: [-50, 50, -50] }}
+          animate={prefersReducedMotion ? {} : { y: [-50, 50, -50] }}
           transition={{
             duration: 30,
             ease: 'easeInOut',
@@ -131,7 +133,7 @@ export function BubbleBackground({
             alignItems: 'center',
             transformOrigin: 'calc(50% - 400px) center',
           }}
-          animate={{ rotate: 360 }}
+          animate={prefersReducedMotion ? {} : { rotate: 360 }}
           transition={{
             duration: 20,
             ease: 'linear',
@@ -158,7 +160,7 @@ export function BubbleBackground({
             alignItems: 'center',
             transformOrigin: 'calc(50% + 400px) center',
           }}
-          animate={{ rotate: 360 }}
+          animate={prefersReducedMotion ? {} : { rotate: 360 }}
           transition={{
             duration: 40,
             ease: 'linear',
@@ -191,7 +193,7 @@ export function BubbleBackground({
             left: '10%',
             background: makeGradient(colors.fourth),
           }}
-          animate={{ x: [-50, 50, -50] }}
+          animate={prefersReducedMotion ? {} : { x: [-50, 50, -50] }}
           transition={{
             duration: 40,
             ease: 'easeInOut',
@@ -208,7 +210,7 @@ export function BubbleBackground({
             alignItems: 'center',
             transformOrigin: 'calc(50% - 800px) calc(50% + 200px)',
           }}
-          animate={{ rotate: 360 }}
+          animate={prefersReducedMotion ? {} : { rotate: 360 }}
           transition={{
             duration: 20,
             ease: 'linear',

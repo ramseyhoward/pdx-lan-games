@@ -186,3 +186,11 @@
   font-weight: bold;
   align-self: flex-start;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .game-info .sale-link {
+    animation: none;
+    background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
+    background-size: 100% auto;
+  }
+}

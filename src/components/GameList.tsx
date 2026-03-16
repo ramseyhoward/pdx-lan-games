@@ -1,4 +1,4 @@
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, useReducedMotion } from 'framer-motion';
 import type { Game as GameType } from '../types/game';
 import Game from './Game.tsx';
 import './GameList.css';
@@ -23,6 +23,7 @@ export default function GameList({
   onRemove,
 }: Props) {
   const { width } = useScreenSize();
+  const prefersReducedMotion = useReducedMotion();
   return (
     <div className="game-list-wrapper">
       {games.length > 0 && (
@@ -31,7 +32,7 @@ export default function GameList({
             src={'/me_pointing_right.png'}
           />
           {width >= 900 ? (
-            <Marquee className="vote-box-info-small">
+            <Marquee className="vote-box-info-small" play={!prefersReducedMotion}>
             Hey asshole! Don't vote more than once!
           </Marquee>
           ) : (
