@@ -28,6 +28,7 @@
 .vote-box-info-small {
   color: rgb(255, 255, 255);
   font-size: 1.25rem;
+  font-weight: bold;
   font-family: 'Danger on the Motorway';
 }
 
@@ -38,8 +39,10 @@
   align-items: center;
   text-align: center;
   color: white;
+  font-family: 'Danger on the Motorway';
   font-size: 0.85rem;
   font-weight: bold;
+  line-height: 1.6;
 }
 
 .vote-box-small-image-left {
