@@ -10,6 +10,10 @@
   background-color: #4a2b96;
 }
 
+.sale-initial-price {
+  color: #c00;
+}
+
 .remove-btn:hover {
   background: #fee2e2;
   border-color: #fca5a5;
@@ -162,4 +166,20 @@
   .vote-controls button {
     padding: 0.1rem 0.2rem;
   }
+}
+
+@keyframes rainbow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.game-info .sale-link {
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
+  background-size: 200% auto;
+  animation: rainbow 2s linear infinite;
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  color: white;
+  font-weight: bold;
+  align-self: flex-start;
 }

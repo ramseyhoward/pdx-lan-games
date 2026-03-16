@@ -33,11 +33,13 @@ body::-webkit-scrollbar {
 .status {
   text-align: center;
   margin-top: 2rem;
-  color: #555;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .status.error {
   color: #c00;
+  font-weight: bold;
 }
 
 .sort-controls {

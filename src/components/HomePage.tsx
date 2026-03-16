@@ -40,7 +40,7 @@ export default function HomePage() {
   const sortMultiplier = sortDir === 'desc' ? 1 : -1;
   const sorted = games.slice().sort((a, b) => {
     if (sortKey === 'votes') return sortMultiplier * (b.votes - a.votes);
-    else return sortMultiplier * (parsePrice(b.price) - parsePrice(a.price));
+    else return sortMultiplier * (parsePrice(b.finalPrice) - parsePrice(a.finalPrice));
   });
 
   const existingAppIds = new Set(games.map((g) => g.appId));

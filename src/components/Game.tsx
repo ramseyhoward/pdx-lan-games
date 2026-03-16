@@ -55,6 +55,11 @@ export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, 
     persistVote(game.id, true);
   }
 
+  const displayPrice = game.onSale && game.initialPrice ? <><s className="sale-initial-price">{game.initialPrice}</s> {game.finalPrice}</>
+  : game.finalPrice
+
+  const tobiasFireSaleLink = 'https://youtu.be/280yPTyei0U?si=6CXOA9vA0AUgkZ7R';
+
   return (
     <motion.li
       className="game-card"
@@ -74,7 +79,12 @@ export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, 
       />
       <div className="game-info">
         <h2>{game.title}</h2>
-        <p className="game-price">{game.price}</p>
+        <p className="game-price">{displayPrice}</p>
+        {game.onSale && (
+          <a href={tobiasFireSaleLink} target="_blank" rel="noreferrer" className="sale-link">
+            It's on sale!
+          </a>
+        )}
         <a href={game.steamUrl} target="_blank" rel="noreferrer">
           View on Steam
         </a>

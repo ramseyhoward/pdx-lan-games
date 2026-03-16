@@ -22,7 +22,7 @@ interface SteamAppData {
   name: string;
   header_image: string;
   is_free: boolean;
-  price_overview?: { final_formatted: string };
+  price_overview?: { final_formatted: string; initial_formatted: string; discount_percent: number; };
 }
 
 export async function fetchGameDetails(
@@ -34,6 +34,7 @@ export async function fetchGameDetails(
   const json = await res.json();
   const data = json[String(appId)]?.data as SteamAppData | undefined;
   if (!data) throw new Error(`No data returned for appId ${appId}`);
+  const discount_percent = data.price_overview?.discount_percent
   console.log(data);
   return {
     id: appId,
@@ -42,9 +43,11 @@ export async function fetchGameDetails(
     headerUrl: data.header_image,
     coverUrl: `${CDN}/${appId}/library_600x900_2x.jpg`,
     steamUrl: `https://store.steampowered.com/app/${appId}`,
-    price: data.is_free
+    finalPrice: data.is_free
       ? 'Free to Play'
       : (data.price_overview?.final_formatted ?? 'N/A'),
+    initialPrice: data.price_overview?.initial_formatted ?? undefined,
+    onSale: discount_percent && discount_percent > 0 ? true : false,
     votes,
   };
 }

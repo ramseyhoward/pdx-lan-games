@@ -14,24 +14,27 @@ export function useGames() {
     async function load() {
       const dbGames = await getGames();
 
-      const resolved = await Promise.all(
+      const games = await Promise.all(
         dbGames.map(async (dbGame) => {
           if (dbGame.title && dbGame.headerUrl) {
-            return dbGame as Game;
+            return dbGame as Game; // bad ramsey, fix this
           }
-          const full = await fetchGameDetails(dbGame.appId, dbGame.votes);
+          const fetchedGame = await fetchGameDetails(dbGame.appId, dbGame.votes);
+          console.log(fetchedGame);
           await patchGame(dbGame.id, {
-            title: full.title,
-            headerUrl: full.headerUrl,
-            coverUrl: full.coverUrl,
-            steamUrl: full.steamUrl,
-            price: full.price,
+            title: fetchedGame.title,
+            headerUrl: fetchedGame.headerUrl,
+            coverUrl: fetchedGame.coverUrl,
+            steamUrl: fetchedGame.steamUrl,
+            finalPrice: fetchedGame.finalPrice,
+            initialPrice: fetchedGame.initialPrice || undefined,
+            onSale: fetchedGame.onSale,
           });
-          return full;
+          return fetchedGame;
         }),
       );
 
-      setGames(resolved);
+      setGames(games);
     }
 
     load()

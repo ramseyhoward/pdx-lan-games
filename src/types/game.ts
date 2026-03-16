@@ -5,7 +5,9 @@ export interface Game {
   headerUrl: string;
   coverUrl: string;
   steamUrl: string;
-  price: string;
+  finalPrice: string;
+  initialPrice?: string;
+  onSale: boolean;
   votes: number;
 }
 
@@ -17,5 +19,7 @@ export interface DbGame {
   headerUrl?: string;
   coverUrl?: string;
   steamUrl?: string;
-  price?: string;
+  finalPrice?: string;
+  initialPrice?: string;
+  onSale: boolean;
 }
