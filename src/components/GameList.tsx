@@ -4,6 +4,7 @@ import Game from './Game.tsx';
 import './GameList.css';
 import { useScreenSize } from '../hooks/useScreenSize.ts';
 import Marquee from "react-fast-marquee";
+import { useState, useEffect, useRef } from 'react';
 
 interface Props {
   games: GameType[];
@@ -22,29 +23,54 @@ export default function GameList({
   onDownvote,
   onRemove,
 }: Props) {
+  let [marqueeMoving, setMarqueeMoving] = useState(true);
   const { width } = useScreenSize();
   const prefersReducedMotion = useReducedMotion();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (width <= 800) return;
+
+    function onWheel(e: WheelEvent) {
+      scrollRef.current?.scrollBy({top: e.deltaY, behavior: 'instant'});
+    }
+    window.addEventListener('wheel', onWheel, {passive: true});
+    return () => window.removeEventListener('wheel', onWheel);
+  }, [width]);
+
+  function handleMarqueeMovement() {
+    const newMarqueeMovementSetting = !marqueeMoving;
+    setMarqueeMoving(newMarqueeMovementSetting);
+  }
+
   return (
     <div className="game-list-wrapper">
       {games.length > 0 && (
-        <div className="vote-box-small">
-          <img className='vote-box-small-image-left'
-            src={'/me_pointing_right.png'}
-          />
-          {width >= 900 ? (
-            <Marquee className="vote-box-info-small" play={!prefersReducedMotion}>
-            Hey asshole! Don't vote more than once!
-          </Marquee>
-          ) : (
-            <div className="vote-box-info-small-spans"><span>Hey asshole!</span><span>Don't vote more than once!</span></div>
-          )
-          }
-          <img className='vote-box-small-image-right'
-            src={'/me_pointing_left.png'}
-          />
+        <div className="alert-box">
+          <div className="vote-box-small">
+            <img className='vote-box-small-image-left'
+              src={'/me_pointing_right.png'}
+            />
+            {width >= 900 ? (
+              <Marquee className="vote-box-info-small" speed={30} play={marqueeMoving && !prefersReducedMotion}>
+                Hey asshole!  Don't vote more than once!
+              </Marquee>
+            ) : (
+              <div className="vote-box-info-small-spans"><span>Hey asshole!</span><span>Don't vote more than once!</span></div>
+            )
+            }
+            <img className='vote-box-small-image-right'
+              src={'/me_pointing_left.png'}
+            />
+          </div>
+          {width >= 900 && (
+            <div>
+              <button className="sort-btn active" onClick={handleMarqueeMovement}>{marqueeMoving ? "Make the marquee stop moving" : "Make the marquee start moving"}</button>
+            </div>
+          )}
         </div>
       )}
-      <div className="game-list-scroll">
+      <div className="game-list-scroll" ref={scrollRef}>
       <ul className="game-list">
         <AnimatePresence>
           {games.map((game) => (

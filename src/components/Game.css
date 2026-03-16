@@ -179,7 +179,7 @@
 .game-info .sale-link {
   background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet, red);
   background-size: 200% auto;
-  animation: rainbow 2s linear infinite;
+  animation: rainbow 10s linear infinite;
   border-radius: 4px;
   padding: 0.1rem 0.4rem;
   color: white;

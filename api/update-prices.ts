@@ -13,11 +13,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const results = await Promise.allSettled(
     games.map(async (game) => {
-      const steamRes = await fetch(
+      const steamResponse = await fetch(
         `https://store.steampowered.com/api/appdetails?appids=${game.appId}&cc=us`
       );
-      if (!steamRes.ok) throw new Error(`HTTP ${steamRes.status} for appId ${game.appId}`);
-      const json = await steamRes.json();
+      if (!steamResponse.ok) throw new Error(`HTTP ${steamResponse.status} for appId ${game.appId}`);
+      const json = await steamResponse.json();
       const data = json[String(game.appId)]?.data;
       if (!data) throw new Error(`No data for appId ${game.appId}`);
 

@@ -69,14 +69,16 @@ export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, 
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { delay: 0, duration: .2 } }}
     >
-      <img
-        className="game-cover"
-        src={game.coverUrl}
-        alt={game.title}
-        onError={(e) => {
-          e.currentTarget.src = '/me_shrugging_90x120.jpg';
-        }}
-      />
+      <a href={game.steamUrl} target="_blank" rel="noreferrer">
+        <img
+          className="game-cover"
+          src={game.coverUrl}
+          alt={game.title}
+          onError={(e) => {
+            e.currentTarget.src = '/me_shrugging_90x120.jpg';
+          }}
+        />
+      </a>
       <div className="game-info">
         <h2 className="game-title">{game.title}</h2>
         <p className="game-price">{displayPrice}</p>
