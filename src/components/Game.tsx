@@ -81,6 +81,7 @@ export default function Game({ game, initialVotedFlag, onUpvote, onDownvote, onR
       <div className="vote-controls">
         <button
           onClick={handleVote}
+          onTouchStart={() => {}}
           aria-label={voted ? "Remove vote" : "Upvote"}
         >
           <img className="elle-thumb-up"     src="/elle_thumb_up.png"      alt="Upvote" />
