@@ -8,6 +8,7 @@ import Marquee from "react-fast-marquee";
 interface Props {
   games: GameType[];
   newGameId?: number;
+  instantLayout?: boolean;
   onUpvote: (id: number) => void;
   onDownvote: (id: number) => void;
   onRemove: (id: number) => void;
@@ -16,6 +17,7 @@ interface Props {
 export default function GameList({
   games,
   newGameId,
+  instantLayout,
   onUpvote,
   onDownvote,
   onRemove,
@@ -48,6 +50,7 @@ export default function GameList({
             <Game
               key={game.id}
               initialVotedFlag={game.id === newGameId}
+              instantLayout={instantLayout}
               game={game}
               onUpvote={() => onUpvote(game.id)}
               onDownvote={() => onDownvote(game.id)}

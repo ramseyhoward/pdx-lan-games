@@ -18,12 +18,13 @@ function persistVote(id: number, voted: boolean) {
 interface Props {
   game: GameType;
   initialVotedFlag: boolean;
+  instantLayout?: boolean;
   onUpvote: () => void;
   onDownvote: () => void;
   onRemove: () => void;
 }
 
-export default function Game({ game, initialVotedFlag, onUpvote, onDownvote, onRemove }: Props) {
+export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [voted, setVoted] = useState(() => initialVotedFlag || getVotedIds().has(game.id));
 
@@ -58,7 +59,7 @@ export default function Game({ game, initialVotedFlag, onUpvote, onDownvote, onR
     <motion.li
       className="game-card"
       layout
-      transition={{ delay: 1, duration: 0.5 }}
+      transition={{ delay: instantLayout ? 0 : 1, duration: 0.5 }}
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { delay: 0, duration: .2 } }}

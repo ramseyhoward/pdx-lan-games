@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useGames } from '../hooks/useGames';
 import GameList from './GameList.tsx';
 import GameSearch from './GameSearch.tsx';
@@ -23,6 +23,19 @@ export default function HomePage() {
   const [sortKey, setSortKey] = useState<SortKey>('votes');
   const [sortDir, setSortDir] = useState<SortDirection>('desc');
   const [newGameId, setNewGameId] = useState<number | undefined>(undefined);
+  const instantLayoutRef = useRef(false);
+
+  function handleSortKey(key: SortKey) {
+    instantLayoutRef.current = true;
+    setSortKey(key);
+    requestAnimationFrame(() => { instantLayoutRef.current = false; });
+  }
+
+  function handleSortDirection(dir: SortDirection) {
+    instantLayoutRef.current = true;
+    setSortDir(dir);
+    requestAnimationFrame(() => { instantLayoutRef.current = false; });
+  }
 
   const sortMultiplier = sortDir === 'desc' ? 1 : -1;
   const sorted = games.slice().sort((a, b) => {
@@ -48,7 +61,7 @@ export default function HomePage() {
             <button
               key={key}
               className={`sort-btn${sortKey === key ? ' active' : ''}`}
-              onClick={() => setSortKey(key)}
+              onClick={() => handleSortKey(key)}
             >
               {key.charAt(0).toUpperCase() + key.slice(1)}
             </button>
@@ -59,7 +72,7 @@ export default function HomePage() {
             <button
               key={d}
               className={`sort-btn${sortDir === d ? ' active' : ''}`}
-              onClick={() => setSortDir(d)}
+              onClick={() => handleSortDirection(d)}
             >
               {d === 'desc' ? '↓ Desc' : '↑ Asc'}
             </button>
@@ -75,6 +88,7 @@ export default function HomePage() {
         <GameList
           games={sorted}
           newGameId={newGameId}
+          instantLayout={instantLayoutRef.current}
           onUpvote={(id) => adjustVotes(id, 1)}
           onDownvote={(id) => adjustVotes(id, -1)}
           onRemove={removeGame}
