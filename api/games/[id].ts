@@ -41,7 +41,9 @@ export default async function handler(request: VercelRequest, response: VercelRe
     }
 
     if (request.method === 'DELETE') {
-        await collection.deleteOne({id});
+        await collection.deleteOne({ id });
+        const users = await getUsersCollection();
+        await users.updateMany({}, { $pull: { votedGameIds: id } });
         await pusher.trigger('pdxlan-games', 'changed', {});
         return response.status(200).end();
     }
