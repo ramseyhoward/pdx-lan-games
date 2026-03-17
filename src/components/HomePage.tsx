@@ -61,7 +61,7 @@ export default function HomePage() {
         </div>
       ) : (
         <a href="/api/auth/steam">
-          <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_02.png" alt="Sign in with Steam" />
+          <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png" alt="Sign in with Steam" />
         </a>
       )}
       <GameSearch existingAppIds={existingAppIds} onAdd={handleAddGame} />

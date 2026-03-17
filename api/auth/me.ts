@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import jwt from 'jsonwebtoken';
-import { getUsersCollection } from '../_db';
+import { getUsersCollection } from '../_db.js';
 import { parse } from 'cookie';
 
 interface JwtPayload {
@@ -42,7 +42,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
         displayName: user.displayName,
         avatarUrl: user.avatarUrl,
         profileVisible: user.profileVisible,
-        ownedAppIds: user.ownedGameIds,
+        ownedGameIds: user.ownedGameIds,
         votedGameIds: user.votedGameIds,
     })
 }
