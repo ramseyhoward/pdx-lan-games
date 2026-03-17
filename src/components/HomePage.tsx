@@ -60,7 +60,7 @@ export default function HomePage() {
           <a href="/api/auth/logout">Log out</a>
         </div>
       ) : (
-        <a href="/api/auth/steam">
+        <a className="steam-sign-in" href="/api/auth/steam">
           <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png" alt="Sign in with Steam" />
         </a>
       )}

@@ -39,6 +39,11 @@ body::-webkit-scrollbar {
   margin-bottom: 1rem;
 }
 
+.steam-sign-in {
+  display:flex;
+  margin-bottom: 1rem;
+}
+
 .user-avatar {
   width: 32px;
   height: 32px;
