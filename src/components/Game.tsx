@@ -7,13 +7,14 @@ interface Props {
   game: GameType;
   initialVotedFlag: boolean;
   instantLayout?: boolean;
+  isLoggedIn: boolean;
   userOwns: boolean;
   onUpvote: () => void;
   onDownvote: () => void;
   onRemove: () => void;
 }
 
-export default function Game({ game, initialVotedFlag, instantLayout, userOwns, onUpvote, onDownvote, onRemove }: Props) {
+export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn, userOwns, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [voted, setVoted] = useState(initialVotedFlag);
 
@@ -80,6 +81,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, userOwns, 
       </div>
       <div className="vote-controls">
         <button
+          disabled={!isLoggedIn}
           className={voted ? "voted" : undefined}
           onClick={handleVote}
           aria-label={voted ? "Remove vote" : "Upvote"}

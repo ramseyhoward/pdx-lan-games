@@ -11,6 +11,7 @@ interface Props {
   newGameId?: number;
   instantLayout?: boolean;
   ownedGameIds: number[];
+  isLoggedIn: boolean;
   onUpvote: (id: number) => void;
   onDownvote: (id: number) => void;
   onRemove: (id: number) => void;
@@ -21,6 +22,7 @@ export default function GameList({
   newGameId,
   instantLayout,
   ownedGameIds,
+  isLoggedIn,
   onUpvote,
   onDownvote,
   onRemove,
@@ -55,7 +57,7 @@ export default function GameList({
             />
             {width >= 900 ? (
               <Marquee className="vote-box-info-small" speed={30} play={marqueeMoving && !prefersReducedMotion}>
-                Hey asshole!  Don't vote more than once!
+                Log in to vote!
               </Marquee>
             ) : (
               <div className="vote-box-info-small-spans"><span>Hey asshole!</span><span>Don't vote more than once!</span></div>
@@ -80,6 +82,7 @@ export default function GameList({
               key={game.id}
               initialVotedFlag={game.id === newGameId}
               instantLayout={instantLayout}
+              isLoggedIn
               userOwns={ownedGameIds.includes(game.appId)}
               game={game}
               onUpvote={() => onUpvote(game.id)}
