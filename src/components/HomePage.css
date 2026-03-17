@@ -99,13 +99,13 @@ body::-webkit-scrollbar {
 }
 
 .sort-btn:hover {
-  border-color: #6656f2;
-  color: #6656f2;
+  border-color: #2956D0;
+  color: #2956D0;
 }
 
 .sort-btn.active {
-  background: #6656f2;
-  border-color: #6656f2;
+  background: #2956D0;
+  border-color: #2956D0;
   color: #fff;
 }
 
