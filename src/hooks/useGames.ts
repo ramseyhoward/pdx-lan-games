@@ -82,6 +82,7 @@ export function useGames() {
     const game = await fetchGameDetails(appId, 1);
     await addGame(game);
     setGames((prev) => [...prev, game]);
+    setUser((prev) => prev ? { ...prev, votedGameIds: [...prev.votedGameIds, game.id] } : prev);
     return game.id;
   }
 
