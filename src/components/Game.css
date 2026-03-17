@@ -7,7 +7,7 @@
   padding: 1rem;
   align-items: center;
   color: #f2f2ff;
-  background-color: #4a2b96;
+  background-color: #66c1e5;
 }
 
 .sale-initial-price {
@@ -78,9 +78,7 @@
 }
 
 .game-info .game-title a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25em;
+  display: inline;
   text-decoration: none;
   color: inherit;
   font-size: inherit;
@@ -89,7 +87,8 @@
 .title-steam-link-icon {
   height: 1.1rem;
   width: 1.1rem;
-  flex-shrink: 0;
+  vertical-align: middle;
+  margin-left: 0.25em;
 }
 
 .game-info {
@@ -108,7 +107,7 @@
 .game-price {
   margin: 0;
   font-family: 'Supermarketed';
-  color: #4caf50;
+  color: #1a3d20;
 }
 
 .game-info a {
@@ -131,7 +130,7 @@
 
 .vote-controls button {
   background: none;
-  border: 2px solid #320862;
+  border: 2px solid #1a5c80;
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.8rem;
@@ -170,8 +169,8 @@
 
 
 .vote-controls button.voted {
-  border-color: #a78bfa;
-  background: rgba(167, 139, 250, 0.2);
+  border-color: #b3dff0;
+  background: rgba(102, 193, 229, 0.2);
 }
 
 .game-card.owned .vote-controls button {
@@ -202,7 +201,7 @@
   }
 
   .vote-controls button.voted:hover {
-    background: rgba(167, 139, 250, 0.35);
+    background: rgba(102, 193, 229, 0.35);
   }
 
   .game-card.owned .vote-controls button.voted:hover {
@@ -217,7 +216,7 @@
 }
 
 .vote-count-voted {
-  color: #320862;
+  color: #1a5c80;
   font-size: 0.9rem;
   font-weight: bold;
 }
@@ -282,5 +281,6 @@
     right: 1rem;
     transform: translateY(-50%) rotate(-50deg);
     font-size: 2rem;
+    color: rgba(255, 255, 255, 0.2);
   }
 }
