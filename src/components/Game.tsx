@@ -80,6 +80,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
         </a>
       </div>
       <div className="vote-controls">
+        <span className={!isLoggedIn ? "vote-btn-tooltip-wrapper" : undefined}>
         <button
           disabled={!isLoggedIn}
           className={voted ? "voted" : undefined}
@@ -93,6 +94,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
           />
           <span className={voted ? "vote-count-voted": "vote-count-not-voted"}>{game.votes}</span>
         </button>
+        </span>
       </div>
       {confirming && (
         <div className="remove-confirm">
