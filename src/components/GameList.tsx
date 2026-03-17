@@ -13,9 +13,11 @@ interface Props {
   votedGameIds: number[];
   isLoggedIn: boolean;
   pendingVoteIds: Set<number>;
+  gameIdsAwaitingRemoval: Set<number>;
   onUpvote: (id: number) => void;
   onDownvote: (id: number) => void;
   onRemove: (id: number) => void;
+  onClearAwaitingRemoval: (id: number) => void;
 }
 
 export default function GameList({
@@ -25,9 +27,11 @@ export default function GameList({
   votedGameIds,
   isLoggedIn,
   pendingVoteIds,
+  gameIdsAwaitingRemoval,
   onUpvote,
   onDownvote,
   onRemove,
+  onClearAwaitingRemoval,
 }: Props) {
   let [marqueeMoving, setMarqueeMoving] = useState(true);
   const { width } = useScreenSize();
@@ -87,10 +91,12 @@ export default function GameList({
               isLoggedIn={isLoggedIn}
               userOwns={ownedGameIds.includes(game.appId)}
               isPending={pendingVoteIds.has(game.id)}
+              isAwaitingRemoval={gameIdsAwaitingRemoval.has(game.id)}
               game={game}
               onUpvote={() => onUpvote(game.id)}
               onDownvote={() => onDownvote(game.id)}
               onRemove={() => onRemove(game.id)}
+              onClearAwaitingRemoval={() => onClearAwaitingRemoval(game.id)}
             />
           ))}
         </AnimatePresence>

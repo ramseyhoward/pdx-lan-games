@@ -18,7 +18,7 @@ function parsePrice(price: string): number {
 }
 
 export default function HomePage() {
-  const { games, loading, error, user, pendingVoteIds, adjustVotes, addNewGame, removeGame } =
+  const { games, loading, error, user, pendingVoteIds, gameIdsAwaitingRemoval, adjustVotes, addNewGame, removeGame, clearGameAwaitingRemoval } =
     useGames();
   const [sortKey, setSortKey] = useState<SortKey>('votes');
   const [sortDir, setSortDir] = useState<SortDirection>('desc');
@@ -98,9 +98,11 @@ export default function HomePage() {
           votedGameIds={user?.votedGameIds ?? []}
           isLoggedIn={!!user}
           pendingVoteIds={pendingVoteIds}
+          gameIdsAwaitingRemoval={gameIdsAwaitingRemoval}
           onUpvote={(id) => adjustVotes(id, 1)}
           onDownvote={(id) => adjustVotes(id, -1)}
           onRemove={removeGame}
+          onClearAwaitingRemoval={clearGameAwaitingRemoval}
         />
       )}
     </div>

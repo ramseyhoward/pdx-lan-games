@@ -10,31 +10,28 @@ interface Props {
   isLoggedIn: boolean;
   userOwns: boolean;
   isPending: boolean;
+  isAwaitingRemoval: boolean;
   onUpvote: () => void;
   onDownvote: () => void;
   onRemove: () => void;
+  onClearAwaitingRemoval: () => void;
 }
 
-export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn, userOwns, isPending, onUpvote, onDownvote, onRemove }: Props) {
+export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn, userOwns, isPending, isAwaitingRemoval, onUpvote, onDownvote, onRemove, onClearAwaitingRemoval }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [voted, setVoted] = useState(initialVotedFlag);
-  const [justDownvoted, setJustDownvoted] = useState(false);
 
   useEffect(() => {
     setVoted(initialVotedFlag);
   }, [initialVotedFlag]);
 
   useEffect(() => {
-    if (justDownvoted && !isPending && game.votes === 0) {
-      setConfirming(true);
-      setJustDownvoted(false);
-    }
-  }, [game.votes, justDownvoted, isPending]);
+    if (isAwaitingRemoval) setConfirming(true);
+  }, [isAwaitingRemoval]);
 
   function handleVote() {
     if (voted) {
       setVoted(false);
-      setJustDownvoted(true);
       onDownvote();
     } else {
       setVoted(true);
@@ -49,7 +46,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
 
   function handleCancel() {
     setConfirming(false);
-    setJustDownvoted(false);
+    onClearAwaitingRemoval();
     setVoted(true);
     onUpvote();
   }

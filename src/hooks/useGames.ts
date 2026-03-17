@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { fetchGameDetails } from '../services/steamApi';
 import { getGames, patchGame, addGame, deleteGame } from '../services/gameDb';
 import type { User } from '../types/user';
@@ -11,6 +11,8 @@ export function useGames() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const userRef = useRef<User | null>(null);
+  const [gameIdsAwaitingRemoval, setGameIdsAwaitingRemoval] = useState<Set<number>>(new Set());
   const { pendingKeys: pendingVoteIds, enqueue: enqueueVote, dequeue: dequeueVote } = usePusherQueue<number>();
   const { enqueue: enqueueAdd, dequeue: dequeueAdd } = usePusherQueue<number>();
 
@@ -22,9 +24,12 @@ export function useGames() {
     function subscribeToGame(id: number) {
       if (pusher.channel(`game-${id}`)) return;
       const gameChannel = pusher.subscribe(`game-${id}`);
-      gameChannel.bind('vote-updated', ({ id, votes }: { id: number; votes: number }) => {
+      gameChannel.bind('vote-updated', ({ id, votes, removedByUserId }: { id: number; votes: number; removedByUserId?: string }) => {
         setGames((current) => current.map((game) => game.id === id ? { ...game, votes } : game));
         dequeueVote(id);
+        if (votes === 0 && removedByUserId !== undefined && removedByUserId === userRef.current?.steamId) {
+          setGameIdsAwaitingRemoval((current) => new Set(current).add(id));
+        }
       });
     }
 
@@ -50,6 +55,7 @@ export function useGames() {
           .catch(() => null),
       ]);
       setUser(fetchedUser);
+      userRef.current = fetchedUser;
 
       const loadedGames = await Promise.all(
         dbGames.map(async (dbGame) => {
@@ -101,7 +107,11 @@ export function useGames() {
     const game = await fetchGameDetails(appId, 1);
     const pusherConfirmed = enqueueAdd(game.id);
     await addGame(game);
-    setUser((current) => current ? { ...current, votedGameIds: [...current.votedGameIds, game.id] } : current);
+    setUser((current) => {
+      const next = current ? { ...current, votedGameIds: [...current.votedGameIds, game.id] } : current;
+      userRef.current = next;
+      return next;
+    });
     await pusherConfirmed;
   }
 
@@ -109,5 +119,9 @@ export function useGames() {
     await deleteGame(id);
   }
 
-  return { games, loading, error, user, pendingVoteIds, adjustVotes, addNewGame, removeGame };
+  function clearGameAwaitingRemoval(id: number) {
+    setGameIdsAwaitingRemoval((current) => { const next = new Set(current); next.delete(id); return next; });
+  }
+
+  return { games, loading, error, user, pendingVoteIds, gameIdsAwaitingRemoval, adjustVotes, addNewGame, removeGame, clearGameAwaitingRemoval };
 }

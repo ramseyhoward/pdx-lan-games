@@ -37,7 +37,11 @@ export default async function handler(request: VercelRequest, response: VercelRe
                 { returnDocument: 'after' },
             );
             const votes = updated?.votes ?? 0;
-            await pusher.trigger(`game-${id}`, 'vote-updated', { id, votes });
+            await pusher.trigger(`game-${id}`, 'vote-updated', {
+                id,
+                votes,
+                ...(votes === 0 && session ? { removedByUserId: session.steamId } : {}),
+            });
             return response.status(200).json({ votes });
         }
 
