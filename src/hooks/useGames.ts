@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchGameDetails } from '../services/steamApi';
 import { getGames, patchGame, addGame, deleteGame } from '../services/gameDb';
+import type { User } from '../types/user';
 import type { Game } from '../types/game';
 import Pusher from 'pusher-js';
 
@@ -9,8 +10,14 @@ export function useGames() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
+    fetch('/api/auth/me')
+      .then(response => response.ok ? response.json() : null)
+      .then((user: User | null) => setUser(user))
+      .catch(() => setUser(null));
+
     async function load() {
       const dbGames = await getGames();
 
@@ -60,13 +67,12 @@ export function useGames() {
   }
 
   async function adjustVotes(id: number, delta: number) {
-    setGames((currentGames) => {
-      const updated = currentGames.map((g) =>
-        g.id === id ? { ...g, votes: g.votes + delta } : g,
-      );
-      const game = updated.find((g) => g.id === id);
-      if (game) patchGame(id, { votes: game.votes });
-      return updated;
+    const action = delta > 0 ? 'upvote' : 'downvote';
+    setGames((currentGames) => currentGames.map((game) => game.id === id ? { ...game, votes: game.votes + delta } : game));
+    await fetch(`api/games/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action }),
     });
   }
 
@@ -83,5 +89,5 @@ export function useGames() {
     setGames((prev) => prev.filter((g) => g.id !== id));
   }
 
-  return { games, loading, error, adjustVotes, addNewGame, removeGame, refresh };
+  return { games, loading, error, user, adjustVotes, addNewGame, removeGame, refresh };
 }

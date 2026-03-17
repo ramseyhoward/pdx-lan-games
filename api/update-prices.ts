@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getCollection } from './_db.js';
+import { getGamesCollection } from './_db.js';
 
 const CDN = 'https://cdn.cloudflare.steamstatic.com/steam/apps';
 
@@ -8,7 +8,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(401).end();
   }
 
-  const collection = await getCollection();
+  const collection = await getGamesCollection();
   const games = await collection.find({}).toArray();
 
   const results = await Promise.allSettled(

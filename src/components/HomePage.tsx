@@ -18,7 +18,7 @@ function parsePrice(price: string): number {
 }
 
 export default function HomePage() {
-  const { games, loading, error, adjustVotes, addNewGame, removeGame, refresh } =
+  const { games, loading, error, user, adjustVotes, addNewGame, removeGame, refresh } =
     useGames();
   const [sortKey, setSortKey] = useState<SortKey>('votes');
   const [sortDir, setSortDir] = useState<SortDirection>('desc');
@@ -53,6 +53,17 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <h1>PDX LAN GAMES</h1>
+      {user ? (
+        <div className="user-info">
+          <img src={user.avatarUrl} alt={user.displayName} className="user-avatar" />
+          <span>{user.displayName}</span>
+          <a href="/api/auth/logout">Log out</a>
+        </div>
+      ) : (
+        <a href="/api/auth/steam">
+          <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_02.png" alt="Sign in with Steam" />
+        </a>
+      )}
       <GameSearch existingAppIds={existingAppIds} onAdd={handleAddGame} />
       <div className="sort-controls">
         <span className="sort-label">Sort by:</span>
@@ -89,6 +100,7 @@ export default function HomePage() {
           games={sorted}
           newGameId={newGameId}
           instantLayout={instantLayoutRef.current}
+          ownedGameIds={user?.ownedGameIds ?? []}
           onUpvote={(id) => adjustVotes(id, 1)}
           onDownvote={(id) => adjustVotes(id, -1)}
           onRemove={removeGame}

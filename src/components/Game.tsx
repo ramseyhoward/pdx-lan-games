@@ -3,30 +3,19 @@ import { useState } from 'react';
 import type { Game as GameType } from '../types/game';
 import './Game.css';
 
-const VOTED_KEY = 'pdx-lan-voted';
-function getVotedIds(): Set<number> {
-  try {
-    return new Set(JSON.parse(localStorage.getItem(VOTED_KEY) ?? '[]'));
-  } catch { return new Set(); }
-}
-function persistVote(id: number, voted: boolean) {
-  const ids = getVotedIds();
-  if (voted) ids.add(id); else ids.delete(id);
-  localStorage.setItem(VOTED_KEY, JSON.stringify([...ids]));
-}
-
 interface Props {
   game: GameType;
   initialVotedFlag: boolean;
   instantLayout?: boolean;
+  userOwns: boolean;
   onUpvote: () => void;
   onDownvote: () => void;
   onRemove: () => void;
 }
 
-export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, onDownvote, onRemove }: Props) {
+export default function Game({ game, initialVotedFlag, instantLayout, userOwns, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
-  const [voted, setVoted] = useState(() => initialVotedFlag || getVotedIds().has(game.id));
+  const [voted, setVoted] = useState(initialVotedFlag);
 
   function handleVote() {
     if (voted) {
@@ -39,12 +28,10 @@ export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, 
     }
     const newVotedState = !voted;
     setVoted(newVotedState);
-    persistVote(game.id, newVotedState);
   }
 
   function handleConfirm() {
     setConfirming(false);
-    persistVote(game.id, false);
     onRemove();
   }
 
@@ -52,7 +39,6 @@ export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, 
     setConfirming(false);
     onUpvote();
     setVoted(true);
-    persistVote(game.id, true);
   }
 
   const displayPrice = game.onSale && game.initialPrice ? <><s className="sale-initial-price">{game.initialPrice}</s> {game.finalPrice}</>
@@ -62,13 +48,14 @@ export default function Game({ game, initialVotedFlag, instantLayout, onUpvote, 
 
   return (
     <motion.li
-      className="game-card"
+      className={`game-card${userOwns ? ' owned' : ''}`}
       layout
       transition={{ delay: instantLayout ? 0 : 1, duration: 0.5 }}
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { delay: 0, duration: .2 } }}
     >
+      {userOwns && <div className="owns-badge">Owned</div>}
       <a href={game.steamUrl} target="_blank" rel="noreferrer">
         <img
           className="game-cover"
