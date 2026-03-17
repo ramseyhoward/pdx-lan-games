@@ -132,6 +132,11 @@
   align-items: center;
 }
 
+.vote-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .vote-controls button.voted {
   border-color: #a78bfa;
   background: rgba(167, 139, 250, 0.2);
