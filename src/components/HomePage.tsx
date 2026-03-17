@@ -58,7 +58,7 @@ export default function HomePage() {
           <a href="/api/auth/logout">Log out</a>
         </div>
       ) : (
-        <a className="steam-sign-in" href="/api/auth/steam">
+        <a className="steam-sign-in" href="#" onClick={async (e) => { e.preventDefault(); const { url } = await fetch('/api/auth/steam').then(r => r.json()); window.location.href = url; }}>
           <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png" alt="Sign in with Steam" />
         </a>
       )}

@@ -12,5 +12,5 @@ export default function handler(_request: VercelRequest, response: VercelRespons
     'openid.claimed_id': 'http://specs.openid.net/auth/2.0/identifier_select',
   });
 
-  response.redirect(`https://steamcommunity.com/openid/login?${params}`);
+  response.json({ url: `https://steamcommunity.com/openid/login?${params}` });
 }
