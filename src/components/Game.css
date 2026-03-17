@@ -221,10 +221,10 @@
 
 .game-card.owned {
   background-color: #6b4ab0;
-  font-family: 'Shoutyperson';
 }
 
 .owns-badge {
+  font-family: 'Shoutyperson';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -252,6 +252,6 @@
   .owns-badge {
     left: auto;
     right: 1rem;
-    transform: translateY(-50%) rotate(-30deg);
+    transform: translateY(-50%) rotate(-50deg);
   }
 }
