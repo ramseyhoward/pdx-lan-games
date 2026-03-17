@@ -203,7 +203,7 @@
   }
 
   .vote-controls button.voted:hover {
-    background: rgba(255, 255, 255, 0.6);
+    background: #2cb1e5;
   }
 
   .game-card.owned .vote-controls button.voted:hover {
