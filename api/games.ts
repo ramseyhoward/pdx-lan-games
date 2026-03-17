@@ -1,9 +1,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getCollection } from './_db.js';
+import { getGamesCollection } from './_db.js';
 import {pusher} from './_pusher.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
-    const collection = await getCollection();
+    const collection = await getGamesCollection();
 
     if (request.method === 'GET') {
         const games = await collection.find({}).toArray();

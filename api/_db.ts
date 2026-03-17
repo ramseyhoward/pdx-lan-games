@@ -3,7 +3,16 @@ import { MongoClient } from 'mongodb';
 const client = new MongoClient(process.env.MONGODB_URI!);
 let connected = false;
 
-export async function getCollection() {
+export interface UserDocument {
+  steamId: string;
+  displayName: string;
+  avatarUrl: string;
+  profileVisible: boolean;
+  ownedAppIds: number[];
+  votedGameIds: number[];
+}
+
+export async function getGamesCollection() {
   if (!connected) {
     await client.connect();
     connected = true;
@@ -16,5 +25,5 @@ export async function getUsersCollection() {
     await client.connect();
     connected = true;
   }
-  return client.db('pdxlandata').collection('users');
+  return client.db('pdxlandata').collection<UserDocument>('users');
 }
