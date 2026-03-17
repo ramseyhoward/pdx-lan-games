@@ -42,7 +42,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
         displayName: user.displayName,
         avatarUrl: user.avatarUrl,
         profileVisible: user.profileVisible,
-        ownedAppIds: user.ownedAppIds,
+        ownedAppIds: user.ownedGameIds,
         votedGameIds: user.votedGameIds,
     })
 }
