@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { getGamesCollection } from './_db.js';
+import { getGamesCollection, getUsersCollection } from './_db.js';
 import {pusher} from './_pusher.js';
+import { getSession } from './_auth.js';
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
     const collection = await getGamesCollection();
@@ -13,6 +14,11 @@ export default async function handler(request: VercelRequest, response: VercelRe
     if (request.method === 'POST') {
         const game = request.body;
         await collection.insertOne(game);
+        const session = getSession(request);
+        if (session) {
+            const users = await getUsersCollection();
+            await users.updateOne({ steamId: session.steamId }, { $addToSet: { votedGameIds: game.id } });
+        }
         await pusher.trigger('pdxlan-games', 'changed', {});
         return response.status(201).json(game);
     }

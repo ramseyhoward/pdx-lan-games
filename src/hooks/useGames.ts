@@ -79,10 +79,9 @@ export function useGames() {
 
   async function addNewGame(appId: number): Promise<number | undefined> {
     if (games.some((g) => g.appId === appId)) return;
-    const game = await fetchGameDetails(appId, 0);
+    const game = await fetchGameDetails(appId, 1);
     await addGame(game);
     setGames((prev) => [...prev, game]);
-    await adjustVotes(game.id, 1);
     return game.id;
   }
 
