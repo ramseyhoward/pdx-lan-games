@@ -1,33 +1,33 @@
 import type { DbGame, Game } from '../types/game';
 
 export async function getGames(): Promise<DbGame[]> {
-  const res = await fetch('/api/games');
-  if (!res.ok) throw new Error(`DB read failed: HTTP ${res.status}`);
-  return res.json();
+  const response = await fetch('/api/games');
+  if (!response.ok) throw new Error(`DB read failed: HTTP ${response.status}`);
+  return response.json();
 }
 
 export async function addGame(game: Game): Promise<void> {
-  const res = await fetch('/api/games', {
+  const response = await fetch('/api/games', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(game),
   });
-  if (!res.ok) throw new Error(`DB write failed: HTTP ${res.status}`);
+  if (!response.ok) throw new Error(`DB write failed: HTTP ${response.status}`);
 }
 
 export async function deleteGame(id: number): Promise<void> {
-  const res = await fetch(`/api/games/${id}`, { method: 'DELETE' });
-  if (!res.ok) throw new Error(`DB delete failed: HTTP ${res.status}`);
+  const response = await fetch(`/api/games/${id}`, { method: 'DELETE' });
+  if (!response.ok) throw new Error(`DB delete failed: HTTP ${response.status}`);
 }
 
 export async function patchGame(
   id: number,
   data: Partial<Game>,
 ): Promise<void> {
-  const res = await fetch(`/api/games/${id}`, {
+  const response = await fetch(`/api/games/${id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
-  if (!res.ok) throw new Error(`DB write failed: HTTP ${res.status}`);
+  if (!response.ok) throw new Error(`DB write failed: HTTP ${response.status}`);
 }

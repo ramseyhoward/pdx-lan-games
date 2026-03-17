@@ -13,13 +13,14 @@ export function useGames() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    fetch('/api/auth/me')
-      .then(response => response.ok ? response.json() : null)
-      .then((user: User | null) => setUser(user))
-      .catch(() => setUser(null));
-
     async function load() {
-      const dbGames = await getGames();
+      const [dbGames, fetchedUser] = await Promise.all([
+        getGames(),
+        fetch('/api/auth/me')
+          .then(response => response.ok ? response.json() as Promise<User> : null)
+          .catch(() => null),
+      ]);
+      setUser(fetchedUser);
 
       const games = await Promise.all(
         dbGames.map(async (dbGame) => {

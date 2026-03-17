@@ -3,9 +3,9 @@ import { getGamesCollection } from './_db.js';
 
 const CDN = 'https://cdn.cloudflare.steamstatic.com/steam/apps';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
-    return res.status(401).end();
+export default async function handler(request: VercelRequest, response: VercelResponse) {
+  if (request.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
+    return response.status(401).end();
   }
 
   const collection = await getGamesCollection();
@@ -40,5 +40,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   );
 
   const failed = results.filter((r) => r.status === 'rejected');
-  return res.status(200).json({ updated: results.length - failed.length, failed: failed.length });
+  return response.status(200).json({ updated: results.length - failed.length, failed: failed.length });
 }

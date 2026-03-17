@@ -8,11 +8,11 @@ export interface SteamSearchResult {
 
 export async function searchGames(query: string): Promise<SteamSearchResult[]> {
   if (!query.trim()) return [];
-  const res = await fetch(
+  const response = await fetch(
     `/api/steam-search/?term=${encodeURIComponent(query)}&l=english&cc=us`,
   );
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const json = await res.json();
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const json = await response.json();
   return (json.items ?? []) as SteamSearchResult[];
 }
 
@@ -29,9 +29,9 @@ export async function fetchGameDetails(
   appId: number,
   votes: number,
 ): Promise<Game> {
-  const res = await fetch(`/api/steam?appids=${appId}&cc=us`);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const json = await res.json();
+  const response = await fetch(`/api/steam?appids=${appId}&cc=us`);
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  const json = await response.json();
   const data = json[String(appId)]?.data as SteamAppData | undefined;
   if (!data) throw new Error(`No data returned for appId ${appId}`);
   const discount_percent = data.price_overview?.discount_percent

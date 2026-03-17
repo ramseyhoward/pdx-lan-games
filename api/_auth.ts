@@ -10,8 +10,8 @@ function isJwtPayload(val: unknown): val is JwtPayload {
   return typeof val === 'object' && val !== null && 'steamId' in val;
 }
 
-export function getSession(req: VercelRequest): JwtPayload | null {
-  const cookieHeader = req.headers.cookie;
+export function getSession(request: VercelRequest): JwtPayload | null {
+  const cookieHeader = request.headers.cookie;
   if (!cookieHeader) return null;
 
   const cookies = parse(cookieHeader);

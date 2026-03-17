@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default function handler(_req: VercelRequest, res: VercelResponse) {
+export default function handler(_request: VercelRequest, response: VercelResponse) {
   const baseURL = process.env.APP_URL!;
 
   const params = new URLSearchParams({
@@ -12,5 +12,5 @@ export default function handler(_req: VercelRequest, res: VercelResponse) {
     'openid.claimed_id': 'http://specs.openid.net/auth/2.0/identifier_select',
   });
 
-  res.redirect(`https://steamcommunity.com/openid/login?${params}`);
+  response.redirect(`https://steamcommunity.com/openid/login?${params}`);
 }
