@@ -34,6 +34,7 @@ export default function GameList({
   onClearAwaitingRemoval,
 }: Props) {
   let [marqueeMoving, setMarqueeMoving] = useState(true);
+  let [alertDismissed, setAlertDismissed] = useState(false);
   const { width } = useScreenSize();
   const prefersReducedMotion = useReducedMotion();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,9 +54,13 @@ export default function GameList({
     setMarqueeMoving(newMarqueeMovementSetting);
   }
 
+  function handleDismissAlert() {
+    setAlertDismissed(true);
+  }
+
   return (
     <div className="game-list-wrapper">
-      {games.length > 0 && (
+      {!alertDismissed && (
         <div className="alert-box">
           <div className="vote-box-small">
             <img className='vote-box-small-image-left'
@@ -73,11 +78,12 @@ export default function GameList({
               src={'/me_pointing_left.png'}
             />
           </div>
-          {width >= 900 && (
-            <div>
+          <div className="alert-box-buttons">
+            <button className="sort-btn active" onClick={handleDismissAlert}>Dismiss my beautiful faces</button>
+            {width >= 900 && (
               <button className="sort-btn active" onClick={handleMarqueeMovement}>{marqueeMoving ? "Make the marquee stop moving" : "Make the marquee start moving"}</button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       )}
       <div className="game-list-scroll" ref={scrollRef}>

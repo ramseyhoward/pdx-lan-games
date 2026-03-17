@@ -81,6 +81,13 @@
   gap: 1rem;
 }
 
+.alert-box-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 @media (max-width: 800px) {
   .game-list-scroll {
     height: auto;
