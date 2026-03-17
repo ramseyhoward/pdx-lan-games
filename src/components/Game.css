@@ -229,7 +229,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) rotate(-30deg);
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
   color: rgba(255, 255, 255, 0.15);
   text-transform: uppercase;
@@ -253,5 +253,6 @@
     left: auto;
     right: 1rem;
     transform: translateY(-50%) rotate(-50deg);
+    font-size: 2rem;
   }
 }
