@@ -75,7 +75,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
             It's on sale!
           </a>
         )}
-        <a href={game.steamUrl} target="_blank" rel="noreferrer">
+        <a className="view-on-steam" href={game.steamUrl} target="_blank" rel="noreferrer">
           View on Steam
         </a>
       </div>

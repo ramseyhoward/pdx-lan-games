@@ -105,6 +105,10 @@
   color: #1a73e8;
 }
 
+.view-on-steam {
+  color: #ffffff;
+}
+
 .vote-controls {
   display: flex;
   flex-direction: column;
