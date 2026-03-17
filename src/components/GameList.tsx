@@ -40,11 +40,13 @@ export default function GameList({
     () => localStorage.getItem('alertDismissed') === 'true'
   );
 
-  const [showKillGif, setShowKillGif] = useState(false);
-  const killGifTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [overlayGif, setOverlayGif] = useState<string | null>(null);
+  const gifTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const alertInstantLayoutRef = useRef(false);
+
   useEffect(() => {
-    return () => { if (killGifTimeout.current) clearTimeout(killGifTimeout.current); };
+    return () => { if (gifTimeout.current) clearTimeout(gifTimeout.current); };
   }, []);
 
   const { width } = useScreenSize();
@@ -72,8 +74,12 @@ export default function GameList({
     requestAnimationFrame(() => { alertInstantLayoutRef.current = false; });
     const newAlertDismissedSetting = !alertDismissed
     if (newAlertDismissedSetting === true) {
-      setShowKillGif(true);
-      killGifTimeout.current = setTimeout(() => setShowKillGif(false), 2000);
+      setOverlayGif("/i'll-kill-you-tim-robinson.gif");
+      gifTimeout.current = setTimeout(() => setOverlayGif(null), 2000);
+    }
+    else {
+      setOverlayGif("/frank-come-crawling-back.gif");
+      gifTimeout.current = setTimeout(() => setOverlayGif(null), 6000);
     }
     localStorage.setItem('alertDismissed', newAlertDismissedSetting.toString());
     setAlertDismissed(newAlertDismissedSetting);
@@ -81,9 +87,9 @@ export default function GameList({
 
   return (
     <div className="game-list-wrapper">
-      {showKillGif && (
+      {overlayGif && (
         <div className="kill-gif-overlay">
-          <img src="/i'll-kill-you-tim-robinson.gif" alt="" />
+          <img src={overlayGif} alt="" />
         </div>
       )}
       {!alertDismissed && (
