@@ -183,8 +183,8 @@
 }
 
 .game-card.owned .vote-controls button.voted {
-  border-color: #48a34b;
-  background: rgba(76, 175, 80, 0.2);
+  border-color: #8fd4a8;
+  background: rgba(143, 212, 168, 0.3);
 }
 
 .game-card.owned .vote-count-not-voted,
@@ -259,7 +259,7 @@
   transform: translate(-50%, -50%) rotate(-30deg);
   font-size: 2.5rem;
   font-weight: bold;
-  color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.35);
   text-transform: uppercase;
   letter-spacing: 0.3em;
   pointer-events: none;
