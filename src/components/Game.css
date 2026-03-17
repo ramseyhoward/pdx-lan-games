@@ -174,6 +174,15 @@
   background: rgba(167, 139, 250, 0.2);
 }
 
+.game-card.owned .vote-controls button {
+  border-color: #1a5c2a;
+}
+
+.game-card.owned .vote-controls button.voted {
+  border-color: #48a34b;
+  background: rgba(76, 175, 80, 0.2);
+}
+
 @media (hover: hover) {
   .vote-btn-tooltip-wrapper:hover::after {
     opacity: 1;
@@ -185,6 +194,10 @@
 
   .vote-controls button.voted:hover {
     background: rgba(167, 139, 250, 0.35);
+  }
+
+  .game-card.owned .vote-controls button.voted:hover {
+    background: rgba(76, 175, 80, 0.35);
   }
 }
 
@@ -226,7 +239,7 @@
 }
 
 .game-card.owned {
-  background-color: #489463;
+  background-color: #8dcead;
 }
 
 .owns-badge {
