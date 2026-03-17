@@ -77,16 +77,18 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
         />
       </a>
       <div className="game-info">
-        <h2 className="game-title">{game.title}</h2>
+        <h2 className="game-title">
+          <a href={game.steamUrl} target="_blank" rel="noreferrer">
+            {game.title}
+            <img src="/open_in_new.png" alt="link to game on Steam" className="title-steam-link-icon" />
+          </a>
+        </h2>
         <p className="game-price">{displayPrice}</p>
         {game.onSale && (
           <a href={tobiasFireSaleLink} target="_blank" rel="noreferrer" className="sale-link">
             It's on sale!
           </a>
         )}
-        <a className="view-on-steam" href={game.steamUrl} target="_blank" rel="noreferrer">
-          View on Steam
-        </a>
       </div>
       <div className="vote-controls">
         <span className={!isLoggedIn ? "vote-btn-tooltip-wrapper" : undefined}>

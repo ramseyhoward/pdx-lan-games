@@ -82,6 +82,21 @@
   font-family: 'Glitch Slap';
 }
 
+.game-info .game-title a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+}
+
+.title-steam-link-icon {
+  height: 1.1rem;
+  width: 1.1rem;
+  flex-shrink: 0;
+}
+
 .game-info {
   display: flex;
   flex-direction: column;
@@ -92,6 +107,7 @@
 .game-info h2 {
   margin: 0;
   font-size: 1.1rem;
+  color: #fff;
 }
 
 .game-price {
@@ -103,10 +119,6 @@
 .game-info a {
   font-size: 0.9rem;
   color: #1a73e8;
-}
-
-.view-on-steam {
-  color: #ffffff;
 }
 
 .vote-controls {
