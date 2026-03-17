@@ -64,7 +64,7 @@ export default function HomePage() {
           <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png" alt="Sign in with Steam" />
         </a>
       )}
-      <GameSearch existingAppIds={existingAppIds} onAdd={handleAddGame} />
+      {user && <GameSearch existingAppIds={existingAppIds} onAdd={handleAddGame} />}
       <div className="sort-controls">
         <span className="sort-label">Sort by:</span>
         <div className="sort-keys">
