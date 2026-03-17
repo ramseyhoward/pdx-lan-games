@@ -106,12 +106,14 @@ export function useGames() {
     if (games.some((game) => game.appId === appId)) return;
     const game = await fetchGameDetails(appId, 1);
     const pusherConfirmed = enqueueAdd(game.id);
-    await addGame(game);
-    setUser((current) => {
-      const next = current ? { ...current, votedGameIds: [...current.votedGameIds, game.id] } : current;
-      userRef.current = next;
-      return next;
-    });
+    const result = await addGame(game);
+    if (result === 'added') {
+      setUser((current) => {
+        const next = current ? { ...current, votedGameIds: [...current.votedGameIds, game.id] } : current;
+        userRef.current = next;
+        return next;
+      });
+    }
     await pusherConfirmed;
   }
 

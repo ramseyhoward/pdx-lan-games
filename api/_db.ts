@@ -16,6 +16,8 @@ export async function getGamesCollection() {
   if (!connected) {
     await client.connect();
     connected = true;
+    const games = client.db('pdxlandata').collection('games');
+    await games.createIndex({ appId: 1 }, { unique: true });
   }
   return client.db('pdxlandata').collection('games');
 }

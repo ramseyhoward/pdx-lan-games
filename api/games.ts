@@ -13,7 +13,14 @@ export default async function handler(request: VercelRequest, response: VercelRe
 
     if (request.method === 'POST') {
         const game = request.body;
-        await collection.insertOne(game);
+        try {
+            await collection.insertOne(game);
+        } catch (err: unknown) {
+            if ((err as { code?: number }).code === 11000) {
+                return response.status(409).json({ error: 'Game already exists' });
+            }
+            throw err;
+        }
         const session = getSession(request);
         if (session) {
             const users = await getUsersCollection();
