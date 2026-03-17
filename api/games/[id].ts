@@ -36,7 +36,9 @@ export default async function handler(request: VercelRequest, response: VercelRe
                 { $inc: { votes: delta } },
                 { returnDocument: 'after' },
             );
-            return response.status(200).json({ votes: updated?.votes ?? 0 });
+            const votes = updated?.votes ?? 0;
+            await pusher.trigger(`game-${id}`, 'vote-updated', { id, votes });
+            return response.status(200).json({ votes });
         }
 
         await collection.updateOne({ id }, { $set: request.body });
@@ -47,7 +49,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
         await collection.deleteOne({ id });
         const users = await getUsersCollection();
         await users.updateMany({}, { $pull: { votedGameIds: id } });
-        await pusher.trigger('pdxlan-games', 'changed', {});
+        await pusher.trigger('pdxlan-games', 'game-removed', { id });
         return response.status(200).end();
     }
 

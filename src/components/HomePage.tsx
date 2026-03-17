@@ -18,11 +18,10 @@ function parsePrice(price: string): number {
 }
 
 export default function HomePage() {
-  const { games, loading, error, user, adjustVotes, addNewGame, removeGame, refresh } =
+  const { games, loading, error, user, pendingVoteIds, adjustVotes, addNewGame, removeGame } =
     useGames();
   const [sortKey, setSortKey] = useState<SortKey>('votes');
   const [sortDir, setSortDir] = useState<SortDirection>('desc');
-  const [newGameId, setNewGameId] = useState<number | undefined>(undefined);
   const instantLayoutRef = useRef(false);
 
   function handleSortKey(key: SortKey) {
@@ -46,8 +45,7 @@ export default function HomePage() {
   const existingAppIds = new Set(games.map((g) => g.appId));
 
   async function handleAddGame(appId: number) {
-    const id = await addNewGame(appId);
-    if (id !== undefined) setNewGameId(id);
+    await addNewGame(appId);
   }
 
   return (
@@ -90,19 +88,16 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-      <div className="sort-controls">
-        <button className="sort-btn active" onClick={refresh}>Refresh vote counts</button>
-      </div>
       {loading && <p className="status">Loading games…</p>}
       {error && <p className="status error">Failed to load games: {error}</p>}
       {!loading && !error && (
         <GameList
           games={sorted}
-          newGameId={newGameId}
           instantLayout={instantLayoutRef.current}
           ownedGameIds={user?.ownedGameIds ?? []}
           votedGameIds={user?.votedGameIds ?? []}
           isLoggedIn={!!user}
+          pendingVoteIds={pendingVoteIds}
           onUpvote={(id) => adjustVotes(id, 1)}
           onDownvote={(id) => adjustVotes(id, -1)}
           onRemove={removeGame}

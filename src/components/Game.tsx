@@ -9,32 +9,33 @@ interface Props {
   instantLayout?: boolean;
   isLoggedIn: boolean;
   userOwns: boolean;
+  isPending: boolean;
   onUpvote: () => void;
-  onDownvote: () => Promise<number>;
+  onDownvote: () => void;
   onRemove: () => void;
 }
 
-export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn, userOwns, onUpvote, onDownvote, onRemove }: Props) {
+export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn, userOwns, isPending, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [voted, setVoted] = useState(initialVotedFlag);
-  const [voting, setVoting] = useState(false);
 
   useEffect(() => {
     setVoted(initialVotedFlag);
   }, [initialVotedFlag]);
 
-  async function handleVote() {
+  useEffect(() => {
+    if (!voted && !isPending && game.votes === 0) {
+      setConfirming(true);
+    }
+  }, [game.votes, voted, isPending]);
+
+  function handleVote() {
     if (voted) {
       setVoted(false);
-      setVoting(true);
-      const realVotes = await onDownvote();
-      setVoting(false);
-      if (realVotes === 0) {
-        setConfirming(true);
-      }
+      onDownvote();
     } else {
-      onUpvote();
       setVoted(true);
+      onUpvote();
     }
   }
 
@@ -45,8 +46,8 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
 
   function handleCancel() {
     setConfirming(false);
-    onUpvote();
     setVoted(true);
+    onUpvote();
   }
 
   const displayPrice = game.onSale && game.initialPrice ? <><s className="sale-initial-price">{game.initialPrice}</s> {game.finalPrice}</>
@@ -89,7 +90,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
       <div className="vote-controls">
         <span className={!isLoggedIn ? "vote-btn-tooltip-wrapper" : undefined}>
         <button
-          disabled={!isLoggedIn || voting}
+          disabled={!isLoggedIn || isPending}
           className={voted ? "voted" : undefined}
           onClick={handleVote}
           aria-label={voted ? "Remove vote" : "Upvote"}

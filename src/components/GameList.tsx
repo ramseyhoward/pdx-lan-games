@@ -8,23 +8,23 @@ import { useState, useEffect, useRef } from 'react';
 
 interface Props {
   games: GameType[];
-  newGameId?: number;
   instantLayout?: boolean;
   ownedGameIds: number[];
   votedGameIds: number[];
   isLoggedIn: boolean;
+  pendingVoteIds: Set<number>;
   onUpvote: (id: number) => void;
-  onDownvote: (id: number) => Promise<number>;
+  onDownvote: (id: number) => void;
   onRemove: (id: number) => void;
 }
 
 export default function GameList({
   games,
-  newGameId,
   instantLayout,
   ownedGameIds,
   votedGameIds,
   isLoggedIn,
+  pendingVoteIds,
   onUpvote,
   onDownvote,
   onRemove,
@@ -86,6 +86,7 @@ export default function GameList({
               instantLayout={instantLayout}
               isLoggedIn={isLoggedIn}
               userOwns={ownedGameIds.includes(game.appId)}
+              isPending={pendingVoteIds.has(game.id)}
               game={game}
               onUpvote={() => onUpvote(game.id)}
               onDownvote={() => onDownvote(game.id)}

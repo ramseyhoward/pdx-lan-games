@@ -19,7 +19,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
             const users = await getUsersCollection();
             await users.updateOne({ steamId: session.steamId }, { $addToSet: { votedGameIds: game.id } });
         }
-        await pusher.trigger('pdxlan-games', 'changed', {});
+        await pusher.trigger('pdxlan-games', 'game-added', { game });
         return response.status(201).json(game);
     }
 
