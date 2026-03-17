@@ -86,7 +86,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
         <p className="game-price">{displayPrice}</p>
         {game.onSale && (
           <a href={tobiasFireSaleLink} target="_blank" rel="noreferrer" className="sale-link">
-            It's on sale!
+            It's on sale 🔥
           </a>
         )}
       </div>
