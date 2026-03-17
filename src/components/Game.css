@@ -161,6 +161,12 @@
 
 
 @media (max-width: 800px) {
+  .owns-badge {
+    left: auto;
+    right: 1rem;
+    transform: translateY(-50%) rotate(-30deg);
+  }
+
   .elle-thumb-up {
     width: clamp(20px, 8vw, 60px);
     height: clamp(20px, 8vw, 60px);
