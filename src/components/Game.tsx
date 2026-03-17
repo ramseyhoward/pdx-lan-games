@@ -96,7 +96,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
             src={voted ? '/elle_thumb_up.png' : '/elle_thumb_neutral.png'}
             alt={voted ? 'Voted' : 'Vote'}
           />
-          <span className={voted ? "vote-count-voted": "vote-count-not-voted"}>{game.votes}</span>
+          <span className={voted ? "vote-count-voted": "vote-count-not-voted"}>{game.votes === 0 ? 1 : game.votes}</span>
         </button>
         </span>
       </div>
