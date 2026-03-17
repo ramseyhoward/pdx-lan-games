@@ -22,6 +22,14 @@ body::-webkit-scrollbar {
   .home-page {
     height: auto;
   }
+
+  .bubble-background-container {
+    background: #e98d93 !important;
+  }
+
+  .bubble-background-animated {
+    display: none;
+  }
 }
 
 .home-page h1 {

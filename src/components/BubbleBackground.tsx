@@ -71,7 +71,7 @@ export function BubbleBackground({
   return (
     <div
       ref={containerRef}
-      className={className}
+      className={`bubble-background-container${className ? ` ${className}` : ''}`}
       style={{
         position: 'fixed',
         inset: 0,
@@ -99,6 +99,7 @@ export function BubbleBackground({
       </svg>
 
       <div
+        className="bubble-background-animated"
         style={{
           position: 'absolute',
           inset: 0,
