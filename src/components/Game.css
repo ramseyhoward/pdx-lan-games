@@ -170,7 +170,7 @@
 
 .vote-controls button.voted {
   border-color: #c2e1ed;
-  background: rgba(255, 255, 255, 0.40);
+  background: rgba(255, 255, 255, 0.35);
 }
 
 .game-card.owned .vote-controls button {
