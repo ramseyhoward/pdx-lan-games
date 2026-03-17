@@ -90,9 +90,6 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-      <div className="sort-controls">
-        <button className="sort-btn active" onClick={refresh}>Refresh vote counts</button>
-      </div>
       {loading && <p className="status">Loading games…</p>}
       {error && <p className="status error">Failed to load games: {error}</p>}
       {!loading && !error && (
