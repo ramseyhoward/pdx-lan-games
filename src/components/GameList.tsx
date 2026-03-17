@@ -42,6 +42,7 @@ export default function GameList({
 
   const [showKillGif, setShowKillGif] = useState(false);
   const killGifTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const alertInstantLayoutRef = useRef(false);
   useEffect(() => {
     return () => { if (killGifTimeout.current) clearTimeout(killGifTimeout.current); };
   }, []);
@@ -67,6 +68,8 @@ export default function GameList({
   }
 
   function handleDismissAlert() {
+    alertInstantLayoutRef.current = true;
+    requestAnimationFrame(() => { alertInstantLayoutRef.current = false; });
     const newAlertDismissedSetting = !alertDismissed
     if (newAlertDismissedSetting === true) {
       setShowKillGif(true);
@@ -116,7 +119,7 @@ export default function GameList({
             <Game
               key={game.id}
               initialVotedFlag={votedGameIds.includes(game.id)}
-              instantLayout={instantLayout}
+              instantLayout={instantLayout || alertInstantLayoutRef.current}
               isLoggedIn={isLoggedIn}
               userOwns={ownedGameIds.includes(game.appId)}
               isPending={pendingVoteIds.has(game.id)}
