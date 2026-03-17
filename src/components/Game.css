@@ -178,9 +178,18 @@
   border-color: #1a5c2a;
 }
 
+.game-card.owned .game-price {
+  color: #1a3d20;
+}
+
 .game-card.owned .vote-controls button.voted {
   border-color: #48a34b;
   background: rgba(76, 175, 80, 0.2);
+}
+
+.game-card.owned .vote-count-not-voted,
+.game-card.owned .vote-count-voted {
+  color: #1a3d20;
 }
 
 @media (hover: hover) {
@@ -239,7 +248,7 @@
 }
 
 .game-card.owned {
-  background-color: #8dcead;
+  background-color: #58ca91;
 }
 
 .owns-badge {
