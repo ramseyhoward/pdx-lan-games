@@ -59,7 +59,7 @@ export default function GameList({
             />
             {width >= 900 ? (
               <Marquee className="vote-box-info-small" speed={30} play={marqueeMoving && !prefersReducedMotion}>
-                Hey nerds! Log in to add games and vote!
+                <span style={{ paddingRight: '2rem' }}>Hey nerds! Log in to add games and vote!</span>
               </Marquee>
             ) : (
               <div className="vote-box-info-small-spans"><span>Hey nerds!</span><span>Log in to add games and vote!</span></div>
