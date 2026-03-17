@@ -14,7 +14,7 @@ interface Props {
   votedGameIds: number[];
   isLoggedIn: boolean;
   onUpvote: (id: number) => void;
-  onDownvote: (id: number) => void;
+  onDownvote: (id: number) => Promise<number>;
   onRemove: (id: number) => void;
 }
 

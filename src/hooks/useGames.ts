@@ -67,14 +67,17 @@ export function useGames() {
     setRefreshKey(key => key + 1);
   }
 
-  async function adjustVotes(id: number, delta: number) {
+  async function adjustVotes(id: number, delta: number): Promise<number> {
     const action = delta > 0 ? 'upvote' : 'downvote';
     setGames((currentGames) => currentGames.map((game) => game.id === id ? { ...game, votes: game.votes + delta } : game));
-    await fetch(`api/games/${id}`, {
+    const response = await fetch(`api/games/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action }),
     });
+    const { votes } = await response.json() as { votes: number };
+    setGames((currentGames) => currentGames.map((game) => game.id === id ? { ...game, votes } : game));
+    return votes;
   }
 
   async function addNewGame(appId: number): Promise<number | undefined> {

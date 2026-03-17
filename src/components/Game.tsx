@@ -10,29 +10,32 @@ interface Props {
   isLoggedIn: boolean;
   userOwns: boolean;
   onUpvote: () => void;
-  onDownvote: () => void;
+  onDownvote: () => Promise<number>;
   onRemove: () => void;
 }
 
 export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn, userOwns, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [voted, setVoted] = useState(initialVotedFlag);
+  const [voting, setVoting] = useState(false);
 
   useEffect(() => {
     setVoted(initialVotedFlag);
   }, [initialVotedFlag]);
 
-  function handleVote() {
+  async function handleVote() {
     if (voted) {
-      onDownvote();
-      if (game.votes - 1 === 0) {
+      setVoted(false);
+      setVoting(true);
+      const realVotes = await onDownvote();
+      setVoting(false);
+      if (realVotes === 0) {
         setConfirming(true);
       }
     } else {
       onUpvote();
+      setVoted(true);
     }
-    const newVotedState = !voted;
-    setVoted(newVotedState);
   }
 
   function handleConfirm() {
@@ -86,7 +89,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
       <div className="vote-controls">
         <span className={!isLoggedIn ? "vote-btn-tooltip-wrapper" : undefined}>
         <button
-          disabled={!isLoggedIn}
+          disabled={!isLoggedIn || voting}
           className={voted ? "voted" : undefined}
           onClick={handleVote}
           aria-label={voted ? "Remove vote" : "Upvote"}

@@ -31,8 +31,12 @@ export default async function handler(request: VercelRequest, response: VercelRe
                 }
             }
 
-            await collection.updateOne({ id }, { $inc: { votes: delta } });
-            return response.status(200).end();
+            const updated = await collection.findOneAndUpdate(
+                { id },
+                { $inc: { votes: delta } },
+                { returnDocument: 'after' },
+            );
+            return response.status(200).json({ votes: updated?.votes ?? 0 });
         }
 
         await collection.updateOne({ id }, { $set: request.body });
