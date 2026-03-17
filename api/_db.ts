@@ -8,7 +8,7 @@ export interface UserDocument {
   displayName: string;
   avatarUrl: string;
   profileVisible: boolean;
-  ownedAppIds: number[];
+  ownedGameIds: number[];
   votedGameIds: number[];
 }
 
