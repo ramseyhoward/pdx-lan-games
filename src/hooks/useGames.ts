@@ -28,9 +28,9 @@ export function useGames() {
 
     const globalChannel = pusher.subscribe('pdxlan-games');
     globalChannel.bind('game-added', ({ game }: { game: Game }) => {
+      subscribeToGame(game.id);
       setGames((current) => {
         if (current.some((existing) => existing.id === game.id)) return current;
-        subscribeToGame(game.id);
         return [...current, game];
       });
     });
@@ -98,7 +98,6 @@ export function useGames() {
     if (games.some((game) => game.appId === appId)) return;
     const game = await fetchGameDetails(appId, 1);
     await addGame(game);
-    setGames((current) => [...current, game]);
     setUser((current) => current ? { ...current, votedGameIds: [...current.votedGameIds, game.id] } : current);
   }
 
