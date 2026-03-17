@@ -32,7 +32,6 @@ export default async function handler(request: VercelRequest, response: VercelRe
             }
 
             await collection.updateOne({ id }, { $inc: { votes: delta } });
-            await pusher.trigger('pdxlan-games', 'changed', {});
             return response.status(200).end();
         }
 
