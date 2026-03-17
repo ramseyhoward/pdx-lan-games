@@ -14,11 +14,6 @@
   color: #c00;
 }
 
-.remove-btn:hover {
-  background: #fee2e2;
-  border-color: #fca5a5;
-  color: #c00;
-}
 
 .remove-confirm {
   position: absolute;
@@ -118,7 +113,6 @@
 
 .game-info a {
   font-size: 0.9rem;
-  color: #1a73e8;
 }
 
 .vote-controls {
@@ -232,7 +226,7 @@
 }
 
 .game-card.owned {
-  background-color: #6b4ab0;
+  background-color: #489463;
 }
 
 .owns-badge {
