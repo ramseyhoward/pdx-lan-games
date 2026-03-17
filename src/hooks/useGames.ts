@@ -113,8 +113,16 @@ export function useGames() {
         userRef.current = next;
         return next;
       });
+      await pusherConfirmed;
+    } else {
+      dequeueAdd(game.id);
+      setUser((current) => {
+        const next = current ? { ...current, votedGameIds: [...current.votedGameIds, result.gameId] } : current;
+        userRef.current = next;
+        return next;
+      });
+      await adjustVotes(result.gameId, 1);
     }
-    await pusherConfirmed;
   }
 
   async function removeGame(id: number): Promise<void> {

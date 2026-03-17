@@ -17,7 +17,9 @@ export default async function handler(request: VercelRequest, response: VercelRe
             await collection.insertOne(game);
         } catch (err: unknown) {
             if ((err as { code?: number }).code === 11000) {
-                return response.status(409).json({ error: 'Game already exists' });
+                const existing = await collection.findOne({ appId: game.appId });
+                if (!existing) return response.status(500).end();
+                return response.status(200).json({ gameId: existing.id });
             }
             throw err;
         }

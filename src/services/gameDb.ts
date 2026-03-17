@@ -6,14 +6,14 @@ export async function getGames(): Promise<DbGame[]> {
   return response.json();
 }
 
-export async function addGame(game: Game): Promise<'added' | 'duplicate'> {
+export async function addGame(game: Game): Promise<'added' | { gameId: number }> {
   const response = await fetch('/api/games', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(game),
   });
-  if (response.status === 409) return 'duplicate';
   if (!response.ok) throw new Error(`DB write failed: HTTP ${response.status}`);
+  if (response.status === 200) return response.json() as Promise<{ gameId: number }>;
   return 'added';
 }
 
