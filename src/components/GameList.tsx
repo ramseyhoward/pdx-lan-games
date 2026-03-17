@@ -33,8 +33,19 @@ export default function GameList({
   onRemove,
   onClearAwaitingRemoval,
 }: Props) {
-  let [marqueeMoving, setMarqueeMoving] = useState(true);
-  let [alertDismissed, setAlertDismissed] = useState(false);
+  let [marqueeMoving, setMarqueeMoving] = useState(
+    () => localStorage.getItem('marqueeMoving') !== 'false'
+  );
+  const [alertDismissed, setAlertDismissed] = useState(
+    () => localStorage.getItem('alertDismissed') !== 'false'
+  );
+
+  const [showKillGif, setShowKillGif] = useState(false);
+  const killGifTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    return () => { if (killGifTimeout.current) clearTimeout(killGifTimeout.current); };
+  }, []);
+
   const { width } = useScreenSize();
   const prefersReducedMotion = useReducedMotion();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -51,15 +62,27 @@ export default function GameList({
 
   function handleMarqueeMovement() {
     const newMarqueeMovementSetting = !marqueeMoving;
+    localStorage.setItem('marqueeMoving', newMarqueeMovementSetting.toString());
     setMarqueeMoving(newMarqueeMovementSetting);
   }
 
   function handleDismissAlert() {
-    setAlertDismissed(true);
+    const newAlertDismissedSetting = !alertDismissed
+    if (newAlertDismissedSetting === true) {
+      setShowKillGif(true);
+      killGifTimeout.current = setTimeout(() => setShowKillGif(false), 2000);
+    }
+    localStorage.setItem('alertDismissed', newAlertDismissedSetting.toString());
+    setAlertDismissed(newAlertDismissedSetting);
   }
 
   return (
     <div className="game-list-wrapper">
+      {showKillGif && (
+        <div className="kill-gif-overlay">
+          <img src="/i'll-kill-you-tim-robinson.gif" alt="" />
+        </div>
+      )}
       {!alertDismissed && (
         <div className="alert-box">
           <div className="vote-box-small">
@@ -78,14 +101,14 @@ export default function GameList({
               src={'/me_pointing_left.png'}
             />
           </div>
-          <div className="alert-box-buttons">
-            <button className="sort-btn active" onClick={handleDismissAlert}>Dismiss my beautiful faces</button>
-            {width >= 900 && (
-              <button className="sort-btn active" onClick={handleMarqueeMovement}>{marqueeMoving ? "Make the marquee stop moving" : "Make the marquee start moving"}</button>
-            )}
-          </div>
         </div>
       )}
+      <div className="alert-box-buttons">
+        <button className="sort-btn active" onClick={handleDismissAlert}>{alertDismissed ? "Add my beautiful faces back" : "Dismiss my beautiful faces"}</button>
+        {width >= 900 && !alertDismissed && (
+          <button className="sort-btn active" onClick={handleMarqueeMovement}>{marqueeMoving ? "Make the marquee stop moving" : "Make the marquee start moving"}</button>
+        )}
+      </div>
       <div className="game-list-scroll" ref={scrollRef}>
       <ul className="game-list">
         <AnimatePresence>

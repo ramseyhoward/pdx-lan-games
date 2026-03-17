@@ -60,7 +60,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
     <motion.li
       className={`game-card${userOwns ? ' owned' : ''}`}
       layout
-      transition={{ delay: instantLayout ? 0 : 1, duration: 0.5 }}
+      transition={{ layout: { duration: 0 }, delay: instantLayout ? 0 : 1, duration: 0.5 }}
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { delay: 0, duration: .2 } }}

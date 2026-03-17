@@ -17,7 +17,7 @@
   display: flex;
   flex-direction:column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .vote-box-small {
@@ -29,7 +29,6 @@
   padding: 1rem;
   align-items: center;
   background-color: #3f66d0;
-  margin-bottom: 10px;
 }
 
 .vote-box-info-small {
@@ -84,6 +83,22 @@
   flex-direction: row;
   justify-content: center;
   gap: 0.5rem;
+  padding: 0 0 0.75rem 0;
+}
+
+.kill-gif-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+}
+
+.kill-gif-overlay img {
+  max-width: 90vw;
+  max-height: 90vh;
 }
 
 .game-list-scroll {
