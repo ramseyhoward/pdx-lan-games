@@ -194,3 +194,22 @@
     background-size: 100% auto;
   }
 }
+
+.game-card.owned {
+  background-color: #6b4ab0;
+}
+
+.owns-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+}

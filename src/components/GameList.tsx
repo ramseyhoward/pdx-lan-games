@@ -10,6 +10,7 @@ interface Props {
   games: GameType[];
   newGameId?: number;
   instantLayout?: boolean;
+  ownedGameIds: number[];
   onUpvote: (id: number) => void;
   onDownvote: (id: number) => void;
   onRemove: (id: number) => void;
@@ -19,6 +20,7 @@ export default function GameList({
   games,
   newGameId,
   instantLayout,
+  ownedGameIds,
   onUpvote,
   onDownvote,
   onRemove,
@@ -78,6 +80,7 @@ export default function GameList({
               key={game.id}
               initialVotedFlag={game.id === newGameId}
               instantLayout={instantLayout}
+              userOwns={ownedGameIds.includes(game.appId)}
               game={game}
               onUpvote={() => onUpvote(game.id)}
               onDownvote={() => onDownvote(game.id)}

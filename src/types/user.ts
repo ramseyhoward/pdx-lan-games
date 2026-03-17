@@ -1,7 +1,7 @@
-interface User {
+export interface User {
   steamId: string;
   displayName: string;
   avatarUrl: string;
-  ownedAppIds: number[];
+  ownedGameIds: number[];
   votedGameIds: number[];
 }
