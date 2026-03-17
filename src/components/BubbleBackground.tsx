@@ -28,12 +28,12 @@ export function BubbleBackground({
   interactive = false,
   transition = { stiffness: 100, damping: 20 },
   colors = {
-    first: '106,30,85',
-    second: '179,55,145',
-    third: '133,14,53',
-    fourth: '59,28,50',
-    fifth: '133,14,53',
-    sixth: '238,105,131',
+    first: '175,124,116',
+    second: '183,136,118',
+    third: '201,158,135',
+    fourth: '229,175,158',
+    fifth: '234,161,152',
+    sixth: '255,188,218',
   },
 }: BubbleBackgroundProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -76,7 +76,7 @@ export function BubbleBackground({
         position: 'fixed',
         inset: 0,
         overflow: 'hidden',
-        background: 'linear-gradient(to bottom right, #c260f0, #2f005b)',
+        background: 'linear-gradient(to bottom right,  	#f4b4ed, #5b169b)',
       }}
     >
       <svg style={{ display: 'none' }} aria-hidden="true">
