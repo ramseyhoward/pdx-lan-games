@@ -27,7 +27,8 @@ body::-webkit-scrollbar {
 .home-page h1 {
   margin-bottom: 1rem;
   font-family: 'Rude', sans-serif;
-  font-size: 3rem;
+  font-size: 3.5rem;
+  color: rgb(41, 86, 208);
 }
 
 .user-info {
