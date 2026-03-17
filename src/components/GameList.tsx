@@ -37,7 +37,7 @@ export default function GameList({
     () => localStorage.getItem('marqueeMoving') !== 'false'
   );
   const [alertDismissed, setAlertDismissed] = useState(
-    () => localStorage.getItem('alertDismissed') !== 'false'
+    () => localStorage.getItem('alertDismissed') === 'true'
   );
 
   const [showKillGif, setShowKillGif] = useState(false);
