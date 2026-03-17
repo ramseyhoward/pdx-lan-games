@@ -1,0 +1,25 @@
+.scroll-to-top {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  bottom: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 100;
+}
+
+.scroll-to-top img {
+  height: 6rem;
+  width: auto;
+  opacity: 0.85;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.scroll-to-top:hover img {
+  opacity: 1;
+  transform: scale(1.2);
+}

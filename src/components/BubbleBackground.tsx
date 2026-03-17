@@ -251,6 +251,7 @@ export function BubbleBackground({
 
       {children && (
         <div
+          className="bubble-background-scroll"
           style={{
             position: 'relative',
             zIndex: 10,

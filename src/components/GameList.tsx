@@ -51,17 +51,6 @@ export default function GameList({
 
   const { width } = useScreenSize();
   const prefersReducedMotion = useReducedMotion();
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (width <= 800) return;
-
-    function onWheel(e: WheelEvent) {
-      scrollRef.current?.scrollBy({top: e.deltaY, behavior: 'instant'});
-    }
-    window.addEventListener('wheel', onWheel, {passive: true});
-    return () => window.removeEventListener('wheel', onWheel);
-  }, [width]);
 
   function handleMarqueeMovement() {
     const newMarqueeMovementSetting = !marqueeMoving;
@@ -119,7 +108,7 @@ export default function GameList({
           <button className="sort-btn active" onClick={handleMarqueeMovement}>{marqueeMoving ? "Make the marquee stop moving" : "Make the marquee start moving"}</button>
         )}
       </div>
-      <div className="game-list-scroll" ref={scrollRef}>
+      <div className="game-list-scroll">
       <ul className="game-list">
         <AnimatePresence>
           {games.map((game) => (

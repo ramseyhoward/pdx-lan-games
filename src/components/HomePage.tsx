@@ -3,6 +3,8 @@ import { useGames } from '../hooks/useGames';
 import GameList from './GameList.tsx';
 import GameSearch from './GameSearch.tsx';
 import './HomePage.css'
+import { useScreenSize } from '../hooks/useScreenSize.ts';
+import ScrollToTop from './ScrollToTop.tsx';
 
 type SortKey = 'votes' | 'price';
 const sortKeys: SortKey[] = ['votes', 'price'];
@@ -23,6 +25,8 @@ export default function HomePage() {
   const [sortKey, setSortKey] = useState<SortKey>('votes');
   const [sortDir, setSortDir] = useState<SortDirection>('desc');
   const instantLayoutRef = useRef(false);
+
+  const { width } = useScreenSize();
 
   function handleSortKey(key: SortKey) {
     instantLayoutRef.current = true;
@@ -104,6 +108,9 @@ export default function HomePage() {
           onRemove={removeGame}
           onClearAwaitingRemoval={clearGameAwaitingRemoval}
         />
+      )}
+      {width >= 1080 && (
+        <ScrollToTop />
       )}
     </div>
   );

@@ -9,20 +9,14 @@ body::-webkit-scrollbar {
 .home-page {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
   box-sizing: border-box;
   font-family: sans-serif;
-  overflow: hidden;
 }
 
 @media (max-width: 800px) {
-  .home-page {
-    height: auto;
-  }
-
   .bubble-background-container {
     background: #e66c8b !important;
   }
