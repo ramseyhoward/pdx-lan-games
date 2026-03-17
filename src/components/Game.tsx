@@ -18,20 +18,23 @@ interface Props {
 export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn, userOwns, isPending, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [voted, setVoted] = useState(initialVotedFlag);
+  const [justDownvoted, setJustDownvoted] = useState(false);
 
   useEffect(() => {
     setVoted(initialVotedFlag);
   }, [initialVotedFlag]);
 
   useEffect(() => {
-    if (!voted && !isPending && game.votes === 0) {
+    if (justDownvoted && !isPending && game.votes === 0) {
       setConfirming(true);
+      setJustDownvoted(false);
     }
-  }, [game.votes, voted, isPending]);
+  }, [game.votes, justDownvoted, isPending]);
 
   function handleVote() {
     if (voted) {
       setVoted(false);
+      setJustDownvoted(true);
       onDownvote();
     } else {
       setVoted(true);
@@ -46,6 +49,7 @@ export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn
 
   function handleCancel() {
     setConfirming(false);
+    setJustDownvoted(false);
     setVoted(true);
     onUpvote();
   }

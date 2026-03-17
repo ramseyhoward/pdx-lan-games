@@ -4,13 +4,15 @@ import { getGames, patchGame, addGame, deleteGame } from '../services/gameDb';
 import type { User } from '../types/user';
 import type { Game } from '../types/game';
 import Pusher from 'pusher-js';
+import { usePusherQueue } from './usePusherQueue';
 
 export function useGames() {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<User | null>(null);
-  const [pendingVoteIds, setPendingVoteIds] = useState<Set<number>>(new Set());
+  const { pendingKeys: pendingVoteIds, enqueue: enqueueVote, dequeue: dequeueVote } = usePusherQueue<number>();
+  const { enqueue: enqueueAdd, dequeue: dequeueAdd } = usePusherQueue<number>();
 
   useEffect(() => {
     const pusher = new Pusher(import.meta.env.VITE_PUSHER_KEY, {
@@ -22,7 +24,7 @@ export function useGames() {
       const gameChannel = pusher.subscribe(`game-${id}`);
       gameChannel.bind('vote-updated', ({ id, votes }: { id: number; votes: number }) => {
         setGames((current) => current.map((game) => game.id === id ? { ...game, votes } : game));
-        setPendingVoteIds((current) => { const next = new Set(current); next.delete(id); return next; });
+        dequeueVote(id);
       });
     }
 
@@ -33,6 +35,7 @@ export function useGames() {
         if (current.some((existing) => existing.id === game.id)) return current;
         return [...current, game];
       });
+      dequeueAdd(game.id);
     });
     globalChannel.bind('game-removed', ({ id }: { id: number }) => {
       setGames((current) => current.filter((game) => game.id !== id));
@@ -85,8 +88,7 @@ export function useGames() {
   async function adjustVotes(id: number, delta: number): Promise<void> {
     const action = delta > 0 ? 'upvote' : 'downvote';
     setGames((current) => current.map((game) => game.id === id ? { ...game, votes: game.votes + delta } : game));
-    setPendingVoteIds((current) => new Set(current).add(id));
-    setTimeout(() => setPendingVoteIds((current) => { const next = new Set(current); next.delete(id); return next; }), 5000);
+    enqueueVote(id);
     await fetch(`api/games/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -97,8 +99,10 @@ export function useGames() {
   async function addNewGame(appId: number): Promise<void> {
     if (games.some((game) => game.appId === appId)) return;
     const game = await fetchGameDetails(appId, 1);
+    const pusherConfirmed = enqueueAdd(game.id);
     await addGame(game);
     setUser((current) => current ? { ...current, votedGameIds: [...current.votedGameIds, game.id] } : current);
+    await pusherConfirmed;
   }
 
   async function removeGame(id: number): Promise<void> {
