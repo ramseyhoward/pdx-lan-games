@@ -236,7 +236,6 @@
   color: white;
   font-weight: bold;
   align-self: flex-start;
-  text-decoration: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
