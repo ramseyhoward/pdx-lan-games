@@ -73,12 +73,13 @@ export default function GameList({
     alertInstantLayoutRef.current = true;
     requestAnimationFrame(() => { alertInstantLayoutRef.current = false; });
     const newAlertDismissedSetting = !alertDismissed
+    const t = Date.now();
     if (newAlertDismissedSetting === true) {
-      setOverlayGif("/i'll-kill-you-tim-robinson.gif");
+      setOverlayGif(`/i'll-kill-you-tim-robinson.gif?t=${t}`);
       gifTimeout.current = setTimeout(() => setOverlayGif(null), 2000);
     }
     else {
-      setOverlayGif("/frank-come-crawling-back.gif");
+      setOverlayGif(`/frank-come-crawling-back.gif?t=${t}`);
       gifTimeout.current = setTimeout(() => setOverlayGif(null), 6000);
     }
     localStorage.setItem('alertDismissed', newAlertDismissedSetting.toString());
