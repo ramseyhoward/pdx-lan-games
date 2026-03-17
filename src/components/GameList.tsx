@@ -82,7 +82,7 @@ export default function GameList({
               key={game.id}
               initialVotedFlag={game.id === newGameId}
               instantLayout={instantLayout}
-              isLoggedIn
+              isLoggedIn={isLoggedIn}
               userOwns={ownedGameIds.includes(game.appId)}
               game={game}
               onUpvote={() => onUpvote(game.id)}
