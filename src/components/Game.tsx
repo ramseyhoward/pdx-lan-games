@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Game as GameType } from '../types/game';
 import './Game.css';
 
@@ -17,6 +17,10 @@ interface Props {
 export default function Game({ game, initialVotedFlag, instantLayout, isLoggedIn, userOwns, onUpvote, onDownvote, onRemove }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [voted, setVoted] = useState(initialVotedFlag);
+
+  useEffect(() => {
+    setVoted(initialVotedFlag);
+  }, [initialVotedFlag]);
 
   function handleVote() {
     if (voted) {
