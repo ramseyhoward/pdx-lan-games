@@ -101,6 +101,7 @@ export default function HomePage() {
           newGameId={newGameId}
           instantLayout={instantLayoutRef.current}
           ownedGameIds={user?.ownedGameIds ?? []}
+          votedGameIds={user?.votedGameIds ?? []}
           isLoggedIn={!!user}
           onUpvote={(id) => adjustVotes(id, 1)}
           onDownvote={(id) => adjustVotes(id, -1)}

@@ -142,7 +142,7 @@
 }
 
 .vote-btn-tooltip-wrapper::after {
-  content: "Log in to vote";
+  content: "Nice try, you piece of shit!";
   position: absolute;
   bottom: calc(100% + 6px);
   left: 50%;
@@ -158,9 +158,6 @@
   transition: opacity 0.15s;
 }
 
-.vote-btn-tooltip-wrapper:hover::after {
-  opacity: 1;
-}
 
 .vote-controls button.voted {
   border-color: #a78bfa;
@@ -168,6 +165,10 @@
 }
 
 @media (hover: hover) {
+  .vote-btn-tooltip-wrapper:hover::after {
+    opacity: 1;
+  }
+
   .vote-controls button:hover {
     background: #f0f0f0;
   }

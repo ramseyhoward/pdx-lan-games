@@ -11,6 +11,7 @@ interface Props {
   newGameId?: number;
   instantLayout?: boolean;
   ownedGameIds: number[];
+  votedGameIds: number[];
   isLoggedIn: boolean;
   onUpvote: (id: number) => void;
   onDownvote: (id: number) => void;
@@ -22,6 +23,7 @@ export default function GameList({
   newGameId,
   instantLayout,
   ownedGameIds,
+  votedGameIds,
   isLoggedIn,
   onUpvote,
   onDownvote,
@@ -80,7 +82,7 @@ export default function GameList({
           {games.map((game) => (
             <Game
               key={game.id}
-              initialVotedFlag={game.id === newGameId}
+              initialVotedFlag={votedGameIds.includes(game.id)}
               instantLayout={instantLayout}
               isLoggedIn={isLoggedIn}
               userOwns={ownedGameIds.includes(game.appId)}
