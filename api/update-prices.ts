@@ -23,7 +23,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
 
       const discountPercent = data.price_overview?.discount_percent ?? 0;
       await collection.updateOne(
-        { id: game.id },
+        { appId: game.appId },
         {
           $set: {
             title: data.name,
