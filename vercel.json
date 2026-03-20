@@ -1,7 +1,7 @@
 {
   "crons": [
-    { "path": "/api/update-prices", "schedule": "0 6,18 * * *" },
-    { "path": "/api/update-owned-games", "schedule": "0 4,16 * *" }
+    { "path": "/api/update-prices", "schedule": "0 6,12,23 * * *" },
+    { "path": "/api/update-owned-games", "schedule": "0 10,20 * * *" }
   ],
   "rewrites": [
     {
